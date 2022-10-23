@@ -4,7 +4,7 @@ Team ID: 50
 
 **Members**
 
-Lim Her Wei
+Lim Her Wei (hwlim)
 
 Github ID: herwei255
 
@@ -12,7 +12,7 @@ Dev Branch ID: dev_input
 
 **
 
-Wilson Thiesman
+Wilson Thiesman (wthiesman)
 
 Github ID: FlamingPika
 
@@ -20,7 +20,7 @@ Dev Branch ID: dev_process
 
 **
 
-Thien Zhong Vei
+Thien Zhong Vei (zvthien)
 
 Github ID: zhongvei
 
