@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel>
+      <module name="ATU.main" target="18" />
+      <module name="ATU.test" target="18" />
+      <module name="com.example" target="18" />
+      <module name="com.example.ATU.main" target="18" />
+      <module name="com.example.ATU.test" target="18" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
