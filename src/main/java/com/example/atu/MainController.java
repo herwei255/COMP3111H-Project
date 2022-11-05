@@ -73,7 +73,8 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // Initialization
-        String csvFile = "/Users/hw/HKUST/2022-Y3a-Fall/COMP 3111H/Project/COMP3111H-Project/student_data.csv";
+        String currentDir = System.getProperty("user.dir");
+        String csvFile = currentDir + "//student_data.csv";
         read(csvFile);
         initializeTable();
         initializeStats();
@@ -102,8 +103,6 @@ public class MainController implements Initializable {
             while ((line = br.readLine()) != null) {
                 tempArr = line.split(delimiter);
                 // System.out.println(tempArr[8]);
-                System.out.println(tempArr.length);
-                System.out.println(tempArr[8]);
                 String studentName = tempArr[1]+tempArr[2];
                 studentName = studentName.substring(1, studentName.length()-1);
                 String studentEmail = tempArr[3];

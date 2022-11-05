@@ -14,8 +14,9 @@ public class MainScene extends Scene implements HasController<MainController> {
 
     public MainScene() throws IOException {
         super(new Label("Loading..."));
-        final var fxml = getClass().getClassLoader().getResource("com/example/atu/main.fxml");
-        final var loader = new FXMLLoader(Objects.requireNonNull(fxml));
+        final var fxml = getClass().getClassLoader().getResource("main.fxml");
+        final FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(fxml));
+
         final var startPane = loader.<Pane>load();
         this.setRoot(startPane);
         controller = loader.getController();
