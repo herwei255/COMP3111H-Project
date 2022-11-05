@@ -8,15 +8,20 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 /**
- * The JavaFX application that launches the game.
+ * The JavaFX application that launches the ATU Engine.
  */
 public class App extends Application {
 
+    private Stage stage;
+    private MainScene mainScene;
+
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        stage.setTitle("Hello!");
+        MainScene scene = new MainScene();
+        this.mainScene = scene;
+        stage.setTitle("Auto Team Up Engine");
+        stage.setMaximized(true);
+        this.stage = stage;
         stage.setScene(scene);
         stage.show();
     }
