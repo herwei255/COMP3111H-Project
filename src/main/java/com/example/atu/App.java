@@ -24,6 +24,9 @@ public class App extends Application {
         this.stage = stage;
         stage.setScene(scene);
         stage.show();
+
+        // startScene.getRoot().addEventFilter(MapEvent.OPEN_MAP_EVENT_TYPE, this::onOpenMap);
+
     }
 
     public static void main(String[] args) {
