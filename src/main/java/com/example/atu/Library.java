@@ -54,8 +54,10 @@ public class Library extends Application {
     }
 
     public static void main(String[] args) throws Exception {
-
-        String csvFile = "/Users/hw/HKUST/2022-Y3a-Fall/COMP 3021/ATU/student_data.csv";
+        //get current directory
+        String currentDir = System.getProperty("user.dir");
+        String csvFile = currentDir + "//student_data.csv";
+        
         Library.read(csvFile);
         System.out.println("Hello");
         launch(args);
