@@ -4,6 +4,13 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.fxml.Initializable;
+import javafx.scene.chart.XYChart;
+
+
 
 import java.io.IOException;
 
@@ -14,6 +21,7 @@ public class App extends Application {
 
     private Stage stage;
     private MainScene mainScene;
+    private OutputScene outputScene;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -24,6 +32,17 @@ public class App extends Application {
         this.stage = stage;
         stage.setScene(scene);
         stage.show();
+
+        //outputscene
+        // OutputScene outputScene = new OutputScene();
+        // this.outputScene = outputScene;
+        // stage.setTitle("Output Scene");
+        // // stage.setMaximized(true);
+        // this.stage = stage;
+        // stage.setScene(outputScene);
+        // stage.show();
+
+        
     }
 
     public static void main(String[] args) {

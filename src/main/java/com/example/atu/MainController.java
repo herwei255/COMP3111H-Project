@@ -13,6 +13,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 
 import java.io.*;
 import java.net.URL;
@@ -73,15 +77,14 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // Initialization
-        String csvFile = "/Users/hw/HKUST/2022-Y3a-Fall/COMP 3111H/Project/COMP3111H-Project/student_data.csv";
+        //get current directory
+        String currentDir = System.getProperty("user.dir");
+        String csvFile = currentDir + "//student_data.csv";
         read(csvFile);
         initializeTable();
         initializeStats();
-
-
+        call();
         // Set listeners
-
-
     }
 
     /**
@@ -91,7 +94,6 @@ public class MainController implements Initializable {
      */
     public static void read(String csvFile) {
 
-        // System.out.print("\n");
         try {
             File file = new File(csvFile);
             InputStreamReader isr = new InputStreamReader(new FileInputStream(file), "UTF-8");
@@ -101,9 +103,6 @@ public class MainController implements Initializable {
             br.readLine(); // skip the first line
             while ((line = br.readLine()) != null) {
                 tempArr = line.split(delimiter);
-                // System.out.println(tempArr[8]);
-                System.out.println(tempArr.length);
-                System.out.println(tempArr[8]);
                 String studentName = tempArr[1]+tempArr[2];
                 studentName = studentName.substring(1, studentName.length()-1);
                 String studentEmail = tempArr[3];
@@ -147,11 +146,6 @@ public class MainController implements Initializable {
         cols.get(9).setCellValueFactory(new PropertyValueFactory("concerns"));
 
         studentTable.refresh();
-
-
-
-
-
     }
 
     /**
@@ -188,6 +182,42 @@ public class MainController implements Initializable {
         K2EnergyLabel.setText("(" + avgK2Energy + ", " + minK2Energy + ", " + maxK2Energy + ")");
         K1EnergyLabel.setText("(" + avgK1Energy + ", " + minK1Energy + ", " + maxK1Energy + ")");
     }
+    void call() {
+        //transform tableview of studentTable to person array
+        Person[] personArr = studentTable.getItems().stream().toArray(Person[]::new);
+        ATUEngine atuEngine = new ATUEngine(personArr);
+        Person [][] groups; 
+        groups = atuEngine.createGroups();
+
+        //create a k1 and k2, average, array list
+        ArrayList<Float> k1ArrayList = new ArrayList<Float>();
+        ArrayList<Float> k2ArrayList = new ArrayList<Float>();
+        ArrayList<Float> avgArrayList = new ArrayList<Float>();
+
+        //print out groups
+        for (int i = 0; i < groups.length; i++) {
+            System.out.println("Group " + (i+1));
+            int k1_sum = 0;
+            int k2_sum = 0;
+            for (int j = 0; j < groups[i].length; j++) {
+                //calculate the average energy level of each group
+                k1_sum += Integer.parseInt(groups[i][j].getK1energy());
+                k2_sum += Integer.parseInt(groups[i][j].getK2energy());
+                
+                //print the student id
+                System.out.println(groups[i][j].getStudentid());
+            }
+            float k1_avg =  (float) k1_sum / groups[i].length;
+            float k2_avg =  (float) k2_sum / groups[i].length;
+
+            k1ArrayList.add(k1_avg);
+            k2ArrayList.add(k2_avg);
+            avgArrayList.add((float)(k1_avg * 0.5 + k2_avg * 0.5));
+
+            System.out.println("K1: " + k1ArrayList.get(i) + " K2: " + k2ArrayList.get(i) + " Avg: " + avgArrayList.get(i));                
+        }
+    }
+
 
     public static class Person {
         private static Integer studentIndex = 0;

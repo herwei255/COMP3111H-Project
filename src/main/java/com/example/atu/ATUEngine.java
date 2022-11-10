@@ -191,7 +191,7 @@ public class ATUEngine {
 
        return groups;
 
-   }
+}
 
 //    public int[][] getGroups() {
 //        // return the groups of students in the form of an 2d array
