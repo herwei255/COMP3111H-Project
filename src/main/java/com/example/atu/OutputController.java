@@ -23,7 +23,7 @@ public class OutputController implements Initializable {
     @FXML
     private NumberAxis y;
 
-    List<Person> personList = new ArrayList<Person>();
+    // List<Person> personList = new ArrayList<Person>();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
