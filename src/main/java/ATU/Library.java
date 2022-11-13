@@ -1,4 +1,4 @@
-package com.example.atu;
+package ATU;
 
 import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
@@ -17,19 +17,21 @@ import javafx.stage.Stage;
 
 import java.io.*;
 
+public class Library extends Application {
 
-public class Library_skeleton extends Application {
-
+    private TableView<Statistics> stat_table = new TableView<Statistics>();
     private TableView<Person> person_table = new TableView<Person>();
-    //Task 1: Define a TableView for statistics data
 
+    private final ObservableList<Statistics> stat_data = FXCollections.observableArrayList(
+            new Statistics("Total Number of Students", "100"),
+            new Statistics("K1_Energy(Average, Min, Max)", "(59.8, 10, 80)"),
+            new Statistics("K2_Energy(Average, Min, Max)", "(62.3, 40, 85)"), new Statistics("K3_Tick1 = 1", "12"),
+            new Statistics("K3_Tick2 = 1", "3"), new Statistics("My_Preference = 1", "19"));
 
     private final static ObservableList<Person> person_data = FXCollections.observableArrayList();
-    //Task 2: Define a ObservableList for statistics data
 
     public static final String delimiter = ",";
 
-    //read csv file
     public static void read(String csvFile) {
 
         System.out.print("\n");
@@ -54,7 +56,7 @@ public class Library_skeleton extends Application {
     public static void main(String[] args) throws Exception {
 
         String csvFile = "/Users/hw/HKUST/2022-Y3a-Fall/COMP 3021/ATU/student_data.csv";
-        Library_skeleton.read(csvFile);
+        Library.read(csvFile);
         System.out.println("Hello");
         launch(args);
 
@@ -62,6 +64,36 @@ public class Library_skeleton extends Application {
 
     @Override
     public void start(Stage stage_stat) {
+        Scene scene_stat = new Scene(new Group());
+        stage_stat.setTitle("Table of students' personal data");
+        stage_stat.setWidth(450);
+        stage_stat.setHeight(500);
+
+        final Label label_stat = new Label("Statistics");
+        label_stat.setFont(new Font("Arial", 20));
+
+        stat_table.setEditable(true);
+
+        TableColumn entry_column = new TableColumn("Entry");
+        entry_column.setMinWidth(100);
+        entry_column.setCellValueFactory(new PropertyValueFactory<Statistics, String>("entry"));
+
+        TableColumn value_column = new TableColumn("Value");
+        value_column.setMinWidth(100);
+        value_column.setCellValueFactory(new PropertyValueFactory<Statistics, String>("value"));
+
+        stat_table.setItems(stat_data);
+        stat_table.getColumns().addAll(entry_column, value_column);
+        stat_table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        final VBox vbox_stat = new VBox();
+        vbox_stat.setSpacing(5);
+        vbox_stat.setPadding(new Insets(10, 0, 0, 10));
+        vbox_stat.getChildren().addAll(label_stat, stat_table);
+
+        ((Group) scene_stat.getRoot()).getChildren().addAll(vbox_stat);
+
+        stage_stat.setScene(scene_stat);
+        stage_stat.show();
 
         Stage stage_person = new Stage();
         Scene scene_person = new Scene(new Group());
@@ -76,35 +108,35 @@ public class Library_skeleton extends Application {
 
         TableColumn studentid_column = new TableColumn("Student_ID");
         studentid_column.setMinWidth(100);
-        studentid_column.setCellValueFactory(new PropertyValueFactory<Library.Statistics, String>("studentid"));
+        studentid_column.setCellValueFactory(new PropertyValueFactory<Statistics, String>("studentid"));
 
         TableColumn studentname_column = new TableColumn("Student_Name");
         studentname_column.setMinWidth(100);
-        studentname_column.setCellValueFactory(new PropertyValueFactory<Library.Statistics, String>("studentname"));
+        studentname_column.setCellValueFactory(new PropertyValueFactory<Statistics, String>("studentname"));
 
         TableColumn k1energy_column = new TableColumn("K1_Energy");
         k1energy_column.setMinWidth(100);
-        k1energy_column.setCellValueFactory(new PropertyValueFactory<Library.Statistics, String>("k1energy"));
+        k1energy_column.setCellValueFactory(new PropertyValueFactory<Statistics, String>("k1energy"));
 
         TableColumn k2energy_column = new TableColumn("k2_Energy");
         k2energy_column.setMinWidth(100);
-        k2energy_column.setCellValueFactory(new PropertyValueFactory<Library.Statistics, String>("k2energy"));
+        k2energy_column.setCellValueFactory(new PropertyValueFactory<Statistics, String>("k2energy"));
 
         TableColumn k3trick1_column = new TableColumn("K3_Trick1");
         k3trick1_column.setMinWidth(100);
-        k3trick1_column.setCellValueFactory(new PropertyValueFactory<Library.Statistics, String>("k3trick1"));
+        k3trick1_column.setCellValueFactory(new PropertyValueFactory<Statistics, String>("k3trick1"));
 
         TableColumn k3trick2_column = new TableColumn("K3_Trick2");
         k3trick2_column.setMinWidth(100);
-        k3trick2_column.setCellValueFactory(new PropertyValueFactory<Library.Statistics, String>("k3trick2"));
+        k3trick2_column.setCellValueFactory(new PropertyValueFactory<Statistics, String>("k3trick2"));
 
         TableColumn mypreference_column = new TableColumn("My_Preference");
         mypreference_column.setMinWidth(100);
-        mypreference_column.setCellValueFactory(new PropertyValueFactory<Library.Statistics, String>("mypreference"));
+        mypreference_column.setCellValueFactory(new PropertyValueFactory<Statistics, String>("mypreference"));
 
         TableColumn concerns_column = new TableColumn("Concerns");
         concerns_column.setMinWidth(100);
-        concerns_column.setCellValueFactory(new PropertyValueFactory<Library.Statistics, String>("concerns"));
+        concerns_column.setCellValueFactory(new PropertyValueFactory<Statistics, String>("concerns"));
 
         person_table.setItems(person_data);
         person_table.getColumns().addAll(studentid_column, studentname_column, k1energy_column, k2energy_column,
@@ -119,8 +151,34 @@ public class Library_skeleton extends Application {
 
         stage_person.setScene(scene_person);
         stage_person.show();
+    }
 
-        //Task3: Define a stage and scene for statistics data, similar to the above code snippet
+    public static class Statistics {
+
+        private final SimpleStringProperty entry;
+        private final SimpleStringProperty value;
+
+        private Statistics(String fName, String lName) {
+            this.entry = new SimpleStringProperty(fName);
+            this.value = new SimpleStringProperty(lName);
+        }
+
+        public String getEntry() {
+            return entry.get();
+        }
+
+        public void setEntry(String val) {
+            entry.set(val);
+        }
+
+        public String getValue() {
+            return value.get();
+        }
+
+        public void setValue(String val) {
+            value.set(val);
+        }
+
     }
 
     public static class Person {
@@ -209,7 +267,6 @@ public class Library_skeleton extends Application {
         public void setConcerns(String val) {
             concerns.set(val);
         }
-    }
 
-    //Task 3: Define a class for statistics data, similar to the class "Person"
+    }
 }

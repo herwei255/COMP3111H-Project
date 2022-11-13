@@ -1,4 +1,4 @@
-package com.example.atu;
+package ATU;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
