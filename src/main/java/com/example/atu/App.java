@@ -32,17 +32,7 @@ public class App extends Application {
         this.stage = stage;
         stage.setScene(scene);
         stage.show();
-
-        //outputscene
-        // OutputScene outputScene = new OutputScene();
-        // this.outputScene = outputScene;
-        // stage.setTitle("Output Scene");
-        // // stage.setMaximized(true);
-        // this.stage = stage;
-        // stage.setScene(outputScene);
-        // stage.show();
-
-        
+       
         // startScene.getRoot().addEventFilter(MapEvent.OPEN_MAP_EVENT_TYPE, this::onOpenMap);
 
     }

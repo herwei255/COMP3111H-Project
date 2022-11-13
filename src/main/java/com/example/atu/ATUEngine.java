@@ -98,10 +98,24 @@ public class ATUEngine {
         return selected;
     }
 
-    protected Person selectK2Member() {
+    protected Person selectK2Member(Person selectedK1) {
         // select the student with the lowest k2 value, then remove it from both k1 k2 arrays
         Person selected = k2_students[0];
-        removeStudent(Integer.parseInt(selected.getStudentid()));
+        int min = 1000000000;
+        int needK1 = Integer.parseInt(selectedK1.getK2energy()) - Integer.parseInt(selectedK1.getK1energy());
+        int needK2 = Integer.parseInt(selected.getK2energy()) - Integer.parseInt(selected.getK1energy());
+        if (needK1 < needK2) {
+            for (int i = 0; i < k2_students.length; i++) {
+                if(k2_students[i] == null) {
+                    break;
+                }
+                needK2 = Integer.parseInt(k2_students[i].getK2energy()) - Integer.parseInt(k2_students[i].getK1energy());
+                if (needK1 < needK2 && needK2 < min) {
+                    selected = k2_students[i];
+                    min = needK2;
+                }
+            }
+        }
         return selected;
     }
 
@@ -121,15 +135,36 @@ public class ATUEngine {
                 break;
             }
             // calculate the distance between the average k1 and k2 values and the selected person's k1 and k2 values
+        
             int distance = (int) Math.sqrt(Math.pow((k1_avg - Integer.parseInt(selected.getK1energy())), 2) + Math.pow((k2_avg - Integer.parseInt(selected.getK2energy())), 2));
             // if the distance is the lowest, then return the selected person
+            if(k1_avg > k2_avg) {
+                if (distance < minDistance && Integer.parseInt(selected.getK1energy()) < Integer.parseInt(selected.getK2energy())) {
+                    minDistance = distance;
+                    minPersonId = Integer.parseInt(selected.getStudentid());
+                }
+            } else {
+                if (distance < minDistance && Integer.parseInt(selected.getK1energy()) > Integer.parseInt(selected.getK2energy())) {
+                    minDistance = distance;
+                    minPersonId = Integer.parseInt(selected.getStudentid());
+                }
+            }
             if (distance < minDistance) {
                 minDistance = distance;
-                minPersonId =  Integer.parseInt(selected.getStudentid());
+                minPersonId = Integer.parseInt(selected.getStudentid());
             }
         }
         // remove the selected person from the k1_students and k2_students array
         Person k3 = getPerson(minPersonId, k1_students, k1_students.length);
+        if (k3 == null) {
+            for (int i = 0; i < k1_students.length; i++) {
+                if (k1_students[i] == null) {
+                    k3 = k1_students[i - 1];
+                    break;
+                }
+            }
+        }
+
         removeStudent(Integer.parseInt(k3.getStudentid()));
         return k3;
     }
@@ -183,7 +218,7 @@ public class ATUEngine {
        for (int i = 0; i < (int) (numStudents / 3); i++) {
             groups[i] = new Person[3];
             groups[i][0] = selectK1Member();
-            groups[i][1] = selectK2Member();
+            groups[i][1] = selectK2Member(groups[i][0]);
             groups[i][2] = selectK3Member(groups[i][0], groups[i][1]);
        }
 
