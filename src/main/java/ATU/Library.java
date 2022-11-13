@@ -1,4 +1,4 @@
-package com.example.atu;
+package ATU;
 
 import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;

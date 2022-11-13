@@ -1,8 +1,9 @@
-module com.example.atu {
+module ATU {
     requires javafx.controls;
     requires javafx.fxml;
+    requires java.desktop;
 
 
-    opens com.example.atu to javafx.fxml;
-    exports com.example.atu;
+    opens ATU to javafx.fxml;
+    exports ATU;
 }

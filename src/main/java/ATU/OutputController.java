@@ -1,4 +1,4 @@
-package com.example.atu;
+package ATU;
 
 import javafx.fxml.FXML;
 import javafx.scene.chart.CategoryAxis;
@@ -6,7 +6,7 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 
-import com.example.atu.MainController.Person;
+import ATU.MainController.Person;
 
 import java.net.URL;
 import java.util.ArrayList;

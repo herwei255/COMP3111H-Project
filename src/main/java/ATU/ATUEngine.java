@@ -1,6 +1,6 @@
-package com.example.atu;
+package ATU;
 
-import com.example.atu.MainController.Person;
+import ATU.MainController.Person;
 
 public class ATUEngine { 
     private Person[] k1_students;

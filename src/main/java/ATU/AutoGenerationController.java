@@ -1,4 +1,4 @@
-package com.example.atu;
+package ATU;
 
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleObjectProperty;
@@ -12,9 +12,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import java.awt.event.KeyEvent;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class AutoGenerationController implements Initializable {
@@ -44,9 +44,6 @@ public class AutoGenerationController implements Initializable {
 
     @FXML
     void submitButtonClicked(ActionEvent event) {
-        System.out.println("students value here is" + students.getValue());
-        if (students.getValue() != null) students.getValue().clear();
-
         if (dataValidated()) {
             students.setValue(
                     StudentAutoGenerator.Generate(new StudentAutoGenerator.StudentGeneratorStatistics(
@@ -63,6 +60,7 @@ public class AutoGenerationController implements Initializable {
             Stage stage = (Stage) node.getScene().getWindow();
             stage.close();
         } else {
+            // Not validated
             Node node = (Node) event.getSource();
             Stage stage = (Stage) node.getScene().getWindow();
             stage.close();
@@ -73,10 +71,6 @@ public class AutoGenerationController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println(students.getValue());
-        if (students.getValue() != null) students.getValue().clear();
-        System.out.println(students.getValue());
-
         forceFieldsNumeric();
     }
 

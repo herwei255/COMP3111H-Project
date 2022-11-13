@@ -1,7 +1,120 @@
-package com.example.atu;
+package ATU;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 import java.util.ArrayList;
-import com.example.atu.MainController.Person;
+import ATU.MainController.Person;
 
 public class StudentAutoGenerator {
     static ArrayList<Person> students = new ArrayList<Person>();
@@ -51,15 +164,14 @@ public class StudentAutoGenerator {
 
         while(students.size() < studentGeneratorStatistics.numberOfStudents) {
             random = (int)(Math.random() * 100);
-            // String studentID = String.format("%08d", random);
             String studentID = String.format("%08d", studentIDList.get(students.size()));
             String firstName = firstNames[(int)(Math.random() * firstNames.length)];
             String lastName = lastNames[(int)(Math.random() * lastNames.length)];
             String fullName = firstName + " " + lastName;
-            String email = firstName + "." + lastName.toUpperCase() + "@connect.ust.hk";
+            String email = firstName + "" + lastName.toUpperCase() + "@connect.ust.hk";
+            String concerns = firstName == "Blaise" ? "I need good teammates" : "";
 
             // K1 Energy, K2 Energy
-            System.out.println("k1energy");
             k1Energy = String.valueOf(k1EnergyList[students.size()]);
             k2Energy = String.valueOf(k2EnergyList[students.size()]);
 
@@ -84,7 +196,7 @@ public class StudentAutoGenerator {
                 myPref = "1"; probMyPrefCounter++;
             }
 
-            students.add(new Person(studentID, fullName, email, k1Energy, k2Energy, k3Tick1, k3Tick2, myPref, ""));
+            students.add(new Person(studentID, fullName, email, k1Energy, k2Energy, k3Tick1, k3Tick2, myPref, concerns));
         }
 
         // Add counters until their limit
@@ -143,7 +255,7 @@ public class StudentAutoGenerator {
                 totalKEnergy -= 1;
             }
         }
-        while (totalKEnergy / numberOfStudents - avgKEnergy <= 3) {
+        while (totalKEnergy / numberOfStudents - avgKEnergy <= -3) {
             random = (int) (Math.random() * numberOfStudents);
             if (kEnergyList[random] < 100) {
                 kEnergyList[random] += 1;

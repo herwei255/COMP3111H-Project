@@ -5,7 +5,6 @@ plugins {
     id 'org.beryx.jlink' version '2.25.0'
 }
 
-group 'com.example'
 version '1.0-SNAPSHOT'
 
 repositories {
@@ -24,8 +23,8 @@ tasks.withType(JavaCompile) {
 }
 
 application {
-    mainModule = 'com.example.atu'
-    mainClass = 'com.example.atu.App'
+    mainModule = 'ATU'
+    mainClass = 'ATU.App'
 }
 
 javafx {
