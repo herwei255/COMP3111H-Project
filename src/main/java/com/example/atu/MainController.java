@@ -73,12 +73,11 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // Initialization
-        String csvFile = "/Users/hw/HKUST/2022-Y3a-Fall/COMP 3111H/Project/COMP3111H-Project/student_data.csv";
+        String csvFile = "/Users/wilsonthiesman/Downloads/COMP3111H/COMP3111H-Project/student_data.csv";
         read(csvFile);
         initializeTable();
         initializeStats();
-
-
+        call();
         // Set listeners
 
 
@@ -102,8 +101,8 @@ public class MainController implements Initializable {
             while ((line = br.readLine()) != null) {
                 tempArr = line.split(delimiter);
                 // System.out.println(tempArr[8]);
-                System.out.println(tempArr.length);
-                System.out.println(tempArr[8]);
+                // System.out.println(tempArr.length);
+                // System.out.println(tempArr[8]);
                 String studentName = tempArr[1]+tempArr[2];
                 studentName = studentName.substring(1, studentName.length()-1);
                 String studentEmail = tempArr[3];
@@ -187,6 +186,24 @@ public class MainController implements Initializable {
         Integer maxK1Energy = Collections.max(K1Energy);
         K2EnergyLabel.setText("(" + avgK2Energy + ", " + minK2Energy + ", " + maxK2Energy + ")");
         K1EnergyLabel.setText("(" + avgK1Energy + ", " + minK1Energy + ", " + maxK1Energy + ")");
+    }
+
+    void call() {
+        // get array from studentTable
+        ObservableList<Person> person_data = studentTable.getItems();
+        // convert observablelist to array
+        Person[] personArray = person_data.toArray(new Person[person_data.size()]);
+        //create instance of atuengine
+        ATUEngine atuEngine = new ATUEngine(personArray);
+        Person[][] groups = atuEngine.createGroups();
+        // print groups
+        // for (int i = 0; i < groups.length; i++) {
+        //     System.out.println("Group " + (i + 1));
+        //     for (int j = 0; j < groups[i].length; j++) {
+        //         System.out.println(groups[i][j].getStudentid());
+        //     }
+        // }
+
     }
 
     public static class Person {

@@ -3,11 +3,15 @@ package com.example.atu;
 import com.example.atu.MainController.Person;
 
 public class ATUEngine { 
-    private Person[] k1_students;
-    private Person[] k2_students;
-    private int numStudents;
 
-    public String toString(Object o) {
+    private Person[] group_A;
+    private Person[] group_B;
+    private Person[] group_C;
+    private int numStudents;
+    // private int num_people_in_group_A_C;
+    // private int num_people_in_group_B;
+
+    public String printAddress(Object o) {
     return o.getClass().getName() + "@" + 
            Integer.toHexString(System.identityHashCode(o));
     }
@@ -21,118 +25,82 @@ public class ATUEngine {
     }
 
     public ATUEngine(Person[] people) {
-        // from the given person array, create two different arrays based on ascending k1 and descending k2 students into the respective arrays
-        // deep copy people array into k1_students and k2_students
-        k1_students = new Person[people.length];
-        k2_students = new Person[people.length];
+
+        int num_people_in_group_A_C = Math.floorDiv(people.length, 3);
+        int num_people_in_group_B = people.length - num_people_in_group_A_C * 2;
+        group_A = new Person[num_people_in_group_A_C];
+        group_B = new Person[num_people_in_group_B];
+        group_C = new Person[num_people_in_group_A_C];
         numStudents = people.length;
+
+        // sort sorted_students array by this formula: (0.55 * k1 + 0.45 * k2)
         for (int i = 0; i < people.length; i++) {
-            // deep copy
-            k1_students[i] = new Person(people[i].getStudentid(), people[i].getStudentname(), people[i].getEmail(), people[i].getK1energy(), people[i].getK2energy(), people[i].getK3trick1(), people[i].getK3trick2(), people[i].getMypreference(), people[i].getConcerns());    
-            k2_students[i] = new Person(people[i].getStudentid(), people[i].getStudentname(), people[i].getEmail(), people[i].getK1energy(), people[i].getK2energy(), people[i].getK3trick1(), people[i].getK3trick2(), people[i].getMypreference(), people[i].getConcerns());
-            // print the address of the object
-            // System.out.println("k1_students[" + i + "] address = " + toString(k1_students[i]));
-            // System.out.println("k2_students[" + i + "] address = " + toString(k2_students[i]));
-
-        }
-
-        // sort k1_students by ascending k1
-        for (int i = 0; i < k1_students.length; i++) {
-            for (int j = 0; j < k1_students.length - 1; j++) {
-                if (Integer.parseInt(k1_students[j].getK1energy()) > Integer.parseInt(k1_students[j + 1].getK1energy())) {
-                    Person temp = k1_students[j];
-                    k1_students[j] = k1_students[j + 1];
-                    k1_students[j + 1] = temp;
+            for (int j = i + 1; j < people.length; j++) {
+                if (Double.parseDouble(people[i].getK1energy()) * 0.55 + Double.parseDouble(people[i].getK2energy()) * 0.45 < Double.parseDouble(people[j].getK1energy()) * 0.55 + Double.parseDouble(people[j].getK2energy()) * 0.45) {
+                    Person temp = people[i];
+                    people[i] = people[j];
+                    people[j] = temp;
                 }
             }
         }
 
-        // sort k2_students by descending k2
-        for (int i = 0; i < k2_students.length; i++) {
-            for (int j = 0; j < k2_students.length - 1; j++) {
-                if (Integer.parseInt(k2_students[j].getK2energy()) < Integer.parseInt(k2_students[j + 1].getK2energy())) {
-                    Person temp = k2_students[j];
-                    k2_students[j] = k2_students[j + 1];
-                    k2_students[j + 1] = temp;
-                }
+        for (int i = 0; i < num_people_in_group_A_C; i++) {
+            if (i < num_people_in_group_B) {
+                group_A[i] = new Person(people[i].getStudentid(), people[i].getStudentname(), people[i].getEmail(), people[i].getK1energy(), people[i].getK2energy(), people[i].getK3trick1(), people[i].getK3trick2(), people[i].getMypreference(), people[i].getConcerns());
+                group_C[i] = new Person(people[i + num_people_in_group_A_C + num_people_in_group_B].getStudentid(), people[i + num_people_in_group_A_C + num_people_in_group_B].getStudentname(), people[i + num_people_in_group_A_C + num_people_in_group_B].getEmail(), people[i + num_people_in_group_A_C + num_people_in_group_B].getK1energy(), people[i + num_people_in_group_A_C + num_people_in_group_B].getK2energy(), people[i + num_people_in_group_A_C + num_people_in_group_B].getK3trick1(), people[i + num_people_in_group_A_C + num_people_in_group_B].getK3trick2(), people[i + num_people_in_group_A_C + num_people_in_group_B].getMypreference(), people[i + num_people_in_group_A_C + num_people_in_group_B].getConcerns());
             }
+            group_B[i] = new Person(people[i + num_people_in_group_A_C].getStudentid(), people[i + num_people_in_group_A_C].getStudentname(), people[i + num_people_in_group_A_C].getEmail(), people[i + num_people_in_group_A_C].getK1energy(), people[i + num_people_in_group_A_C].getK2energy(), people[i + num_people_in_group_A_C].getK3trick1(), people[i + num_people_in_group_A_C].getK3trick2(), people[i + num_people_in_group_A_C].getMypreference(), people[i + num_people_in_group_A_C].getConcerns());
         }
-        System.out.println("k1_students");
-        printArray(k1_students);
-        System.out.println("\n\n\n");
-        System.out.println("k2_students");
-        printArray(k2_students);
+
+        // System.out.println("group A " + "length = " + group_A.length);
+        // printArray(group_A);
+        // System.out.println("group B " + "length = " + group_B.length);
+        // printArray(group_B);
+        // System.out.println("group C " + "length = " + group_C.length);
+        // printArray(group_C);
 
     }
 
-    protected void removeStudent(int id) {
-        // remove the student with the given id from the k1_students and k2_students array
-
-        for (int i = 0; i < k1_students.length; i++) {
-            if (Integer.parseInt(k1_students[i].getStudentid()) == id) {
-                for (int j = i; j < k1_students.length - 1; j++) {
-                    k1_students[j] = k1_students[j + 1];
-                }
-                k1_students[k1_students.length - 1] = null;
-                break;
-            }
-        }
-
-        for (int i = 0; i < k2_students.length; i++) {
-            if (Integer.parseInt(k2_students[i].getStudentid()) == id) {
-                for (int j = i; j < k2_students.length - 1; j++) {
-                    k2_students[j] = k2_students[j + 1];
-                }
-                k2_students[k2_students.length - 1] = null;
-                break;
-            }
-        }
-        System.out.println("Student " + id + " removed.");
-
-    }
-
-    protected Person selectK1Member() {
-        // select the student with the highest k1 value, then remove it from both k1 k2 arrays
-        Person selected = k1_students[0];
-        removeStudent(Integer.parseInt(selected.getStudentid()));
+    protected Person selectFromGroupA(int index) {
+        // select the highest score student, then remove it from both k1 k2 arrays
+        Person selected = group_A[index];
         return selected;
     }
 
-    protected Person selectK2Member() {
+    protected Person selectFromGroupC(int index) {
         // select the student with the lowest k2 value, then remove it from both k1 k2 arrays
-        Person selected = k2_students[0];
-        removeStudent(Integer.parseInt(selected.getStudentid()));
+        Person selected = group_C[group_C.length - 1 - index];
         return selected;
     }
 
-    protected Person selectK3Member(Person k1, Person k2) {
-        //calculate the shortest distance between the given k1 and k2 students, select the student closest to the distance, then remove it from both k1 k2 arrays
-        //get the average k1 value of k1 person and k2 person
-        int k1_avg = (Integer.parseInt(k1.getK1energy()) + Integer.parseInt(k2.getK1energy())) / 2;
-        //get the average k2 value of k1 person and k2 person
-        int k2_avg = (Integer.parseInt(k1.getK2energy()) + Integer.parseInt(k2.getK2energy())) / 2;
-        int minPersonId = 0;
-        int minDistance = 1000000;
-        //choose a person that has the lowest distance from the average k1 and k2 values
-        for (int i = 0; i < k1_students.length; i++) {
-            // choose a person
-            Person selected = k1_students[i];
-            if (selected == null) {
-                break;
-            }
-            // calculate the distance between the average k1 and k2 values and the selected person's k1 and k2 values
-            int distance = (int) Math.sqrt(Math.pow((k1_avg - Integer.parseInt(selected.getK1energy())), 2) + Math.pow((k2_avg - Integer.parseInt(selected.getK2energy())), 2));
-            // if the distance is the lowest, then return the selected person
-            if (distance < minDistance) {
-                minDistance = distance;
-                minPersonId =  Integer.parseInt(selected.getStudentid());
-            }
-        }
-        // remove the selected person from the k1_students and k2_students array
-        Person k3 = getPerson(minPersonId, k1_students, k1_students.length);
-        removeStudent(Integer.parseInt(k3.getStudentid()));
-        return k3;
-    }
+    // protected Person selectK3Member(Person k1, Person k2) {
+    //     //calculate the shortest distance between the given k1 and k2 students, select the student closest to the distance, then remove it from both k1 k2 arrays
+    //     //get the average k1 value of k1 person and k2 person
+    //     int k1_avg = (Integer.parseInt(k1.getK1energy()) + Integer.parseInt(k2.getK1energy())) / 2;
+    //     //get the average k2 value of k1 person and k2 person
+    //     int k2_avg = (Integer.parseInt(k1.getK2energy()) + Integer.parseInt(k2.getK2energy())) / 2;
+    //     int minPersonId = 0;
+    //     int minDistance = 1000000;
+    //     //choose a person that has the lowest distance from the average k1 and k2 values
+    //     for (int i = 0; i < k1_students.length; i++) {
+    //         // choose a person
+    //         Person selected = k1_students[i];
+    //         if (selected == null) {
+    //             break;
+    //         }
+    //         // calculate the distance between the average k1 and k2 values and the selected person's k1 and k2 values
+    //         int distance = (int) Math.sqrt(Math.pow((k1_avg - Integer.parseInt(selected.getK1energy())), 2) + Math.pow((k2_avg - Integer.parseInt(selected.getK2energy())), 2));
+    //         // if the distance is the lowest, then return the selected person
+    //         if (distance < minDistance) {
+    //             minDistance = distance;
+    //             minPersonId =  Integer.parseInt(selected.getStudentid());
+    //         }
+    //     }
+    //     // remove the selected person from the k1_students and k2_students array
+    //     Person k3 = getPerson(minPersonId, k1_students, k1_students.length);
+    //     removeStudent(Integer.parseInt(k3.getStudentid()));
+    //     return k3;
+    // }
 
     public boolean checkStudent(int studentId, Person[] studentsArray, int length) {
         // return the student at the given index
@@ -161,34 +129,35 @@ public class ATUEngine {
    public Person[][] createGroups() {
         // group the students into groups of 3 or 4
         // minimize the standard deviation of the group's average based on the k1 and k2 values
-//        int sid = Integer.parseInt(k1_students[0].getStudentid());
-//        System.out.println("K1: " + k1_students[0].getStudentid());
-//        removeStudent(Integer.parseInt(k1_students[0].getStudentid()));
-//        if (checkStudent(sid, k1_students, k1_students.length)) {
-//            System.out.println("The student exist in k1");
-//        } else {
-//            System.out.println("The student does not exist in k1");
-//        }
-//
-//        if (checkStudent(sid, k2_students, k2_students.length)) {
-//            System.out.println("The student exist in k2");
-//        } else {
-//            System.out.println("The student does not exist in k2");
-//        }
-       //select k1, k2 and k3
 
        int num = (int) (numStudents / 3);
        Person[][] groups = new Person[num][3];
 
-       for (int i = 0; i < (int) (numStudents / 3); i++) {
+       for (int i = 0; i < Math.floorDiv(numStudents, 3); i++) {
             groups[i] = new Person[3];
-            groups[i][0] = selectK1Member();
-            groups[i][1] = selectK2Member();
-            groups[i][2] = selectK3Member(groups[i][0], groups[i][1]);
+            groups[i][0] = selectFromGroupA(i);
+            groups[i][1] = selectFromGroupC(i);
+            // groups[i][2] = selectK3Member(groups[i][0], groups[i][1]);
        }
 
         // need to take account of the missing kid
-
+        // print 2d array of groups
+        for (int i = 0; i < groups.length; i++) {
+            System.out.println("Group " + (i + 1) + ":");
+            double avg_k1 = 0;
+            double avg_k2 = 0;
+            for (int j = 0; j < groups[i].length; j++) {
+                if (groups[i][j] != null) {
+                    avg_k1 = avg_k1 + Integer.parseInt(groups[i][j].getK1energy());
+                    avg_k2 = avg_k2 + Integer.parseInt(groups[i][j].getK2energy());
+                    System.out.print(groups[i][j].getStudentid() + " ");
+                }
+            }
+            System.out.printf("\nAverage k1: %,.2f", avg_k1 / 2);
+            System.out.printf("\nAverage k2: %,.2f", avg_k2 / 2);
+            System.out.println("\nOverall average = " + avg_k1 / 2 * 0.55 + avg_k2 / 2 * 0.45);
+            System.out.println();
+        }
        return groups;
 
    }

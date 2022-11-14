@@ -53,7 +53,7 @@ public class Library_skeleton extends Application {
 
     public static void main(String[] args) throws Exception {
 
-        String csvFile = "/Users/hw/HKUST/2022-Y3a-Fall/COMP 3021/ATU/student_data.csv";
+        String csvFile = "/Users/wilsonthiesman/Downloads/COMP3111H/COMP3111H-Project/student_data.csv";
         Library_skeleton.read(csvFile);
         System.out.println("Hello");
         launch(args);
