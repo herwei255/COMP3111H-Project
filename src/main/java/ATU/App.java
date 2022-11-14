@@ -1,9 +1,14 @@
-package com.example.atu;
+package ATU;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.fxml.Initializable;
+import javafx.scene.chart.XYChart;
+
+
 
 import java.io.IOException;
 
@@ -14,6 +19,7 @@ public class App extends Application {
 
     private Stage stage;
     private MainScene mainScene;
+    private OutputScene outputScene;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -24,6 +30,9 @@ public class App extends Application {
         this.stage = stage;
         stage.setScene(scene);
         stage.show();
+       
+        // startScene.getRoot().addEventFilter(MapEvent.OPEN_MAP_EVENT_TYPE, this::onOpenMap);
+
     }
 
     public static void main(String[] args) {

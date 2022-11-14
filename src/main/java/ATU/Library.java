@@ -1,4 +1,4 @@
-package com.example.atu;
+package ATU;
 
 import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
@@ -14,6 +14,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 
 import java.io.*;
 
@@ -65,94 +69,67 @@ public class Library extends Application {
     }
 
     @Override
-    public void start(Stage stage_stat) {
-        Scene scene_stat = new Scene(new Group());
-        stage_stat.setTitle("Table of students' personal data");
-        stage_stat.setWidth(450);
-        stage_stat.setHeight(500);
-
-        final Label label_stat = new Label("Statistics");
-        label_stat.setFont(new Font("Arial", 20));
-
-        stat_table.setEditable(true);
-
-        TableColumn entry_column = new TableColumn("Entry");
-        entry_column.setMinWidth(100);
-        entry_column.setCellValueFactory(new PropertyValueFactory<Statistics, String>("entry"));
-
-        TableColumn value_column = new TableColumn("Value");
-        value_column.setMinWidth(100);
-        value_column.setCellValueFactory(new PropertyValueFactory<Statistics, String>("value"));
-
-        stat_table.setItems(stat_data);
-        stat_table.getColumns().addAll(entry_column, value_column);
-        stat_table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        final VBox vbox_stat = new VBox();
-        vbox_stat.setSpacing(5);
-        vbox_stat.setPadding(new Insets(10, 0, 0, 10));
-        vbox_stat.getChildren().addAll(label_stat, stat_table);
-
-        ((Group) scene_stat.getRoot()).getChildren().addAll(vbox_stat);
-
-        stage_stat.setScene(scene_stat);
-        stage_stat.show();
-
-        Stage stage_person = new Stage();
-        Scene scene_person = new Scene(new Group());
-        stage_person.setTitle("Table of statistics data");
-        stage_person.setWidth(450);
-        stage_person.setHeight(500);
-
-        final Label label_person = new Label("Person");
-        label_person.setFont(new Font("Arial", 20));
-
-        person_table.setEditable(true);
-
-        TableColumn studentid_column = new TableColumn("Student_ID");
-        studentid_column.setMinWidth(100);
-        studentid_column.setCellValueFactory(new PropertyValueFactory<Statistics, String>("studentid"));
-
-        TableColumn studentname_column = new TableColumn("Student_Name");
-        studentname_column.setMinWidth(100);
-        studentname_column.setCellValueFactory(new PropertyValueFactory<Statistics, String>("studentname"));
-
-        TableColumn k1energy_column = new TableColumn("K1_Energy");
-        k1energy_column.setMinWidth(100);
-        k1energy_column.setCellValueFactory(new PropertyValueFactory<Statistics, String>("k1energy"));
-
-        TableColumn k2energy_column = new TableColumn("k2_Energy");
-        k2energy_column.setMinWidth(100);
-        k2energy_column.setCellValueFactory(new PropertyValueFactory<Statistics, String>("k2energy"));
-
-        TableColumn k3trick1_column = new TableColumn("K3_Trick1");
-        k3trick1_column.setMinWidth(100);
-        k3trick1_column.setCellValueFactory(new PropertyValueFactory<Statistics, String>("k3trick1"));
-
-        TableColumn k3trick2_column = new TableColumn("K3_Trick2");
-        k3trick2_column.setMinWidth(100);
-        k3trick2_column.setCellValueFactory(new PropertyValueFactory<Statistics, String>("k3trick2"));
-
-        TableColumn mypreference_column = new TableColumn("My_Preference");
-        mypreference_column.setMinWidth(100);
-        mypreference_column.setCellValueFactory(new PropertyValueFactory<Statistics, String>("mypreference"));
-
-        TableColumn concerns_column = new TableColumn("Concerns");
-        concerns_column.setMinWidth(100);
-        concerns_column.setCellValueFactory(new PropertyValueFactory<Statistics, String>("concerns"));
-
-        person_table.setItems(person_data);
-        person_table.getColumns().addAll(studentid_column, studentname_column, k1energy_column, k2energy_column,
-                k3trick1_column, k3trick2_column, mypreference_column, concerns_column);
-        person_table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        final VBox vbox_person = new VBox();
-        vbox_person.setSpacing(5);
-        vbox_person.setPadding(new Insets(10, 0, 0, 10));
-        vbox_person.getChildren().addAll(label_person, person_table);
-
-        ((Group) scene_person.getRoot()).getChildren().addAll(vbox_person);
-
-        stage_person.setScene(scene_person);
-        stage_person.show();
+    public void start(Stage stage) {
+        stage.setTitle("Line Chart Sample");
+        final CategoryAxis xAxis = new CategoryAxis();
+        final NumberAxis yAxis = new NumberAxis();
+         xAxis.setLabel("Month");
+        final LineChart<String,Number> lineChart = 
+                new LineChart<String,Number>(xAxis,yAxis);
+       
+        lineChart.setTitle("Stock Monitoring, 2010");
+                          
+        XYChart.Series series1 = new XYChart.Series();
+        series1.setName("Portfolio 1");
+        
+        series1.getData().add(new XYChart.Data("Jan", 23));
+        series1.getData().add(new XYChart.Data("Feb", 14));
+        series1.getData().add(new XYChart.Data("Mar", 15));
+        series1.getData().add(new XYChart.Data("Apr", 24));
+        series1.getData().add(new XYChart.Data("May", 34));
+        series1.getData().add(new XYChart.Data("Jun", 36));
+        series1.getData().add(new XYChart.Data("Jul", 22));
+        series1.getData().add(new XYChart.Data("Aug", 45));
+        series1.getData().add(new XYChart.Data("Sep", 43));
+        series1.getData().add(new XYChart.Data("Oct", 17));
+        series1.getData().add(new XYChart.Data("Nov", 29));
+        series1.getData().add(new XYChart.Data("Dec", 25));
+        
+        XYChart.Series series2 = new XYChart.Series();
+        series2.setName("Portfolio 2");
+        series2.getData().add(new XYChart.Data("Jan", 33));
+        series2.getData().add(new XYChart.Data("Feb", 34));
+        series2.getData().add(new XYChart.Data("Mar", 25));
+        series2.getData().add(new XYChart.Data("Apr", 44));
+        series2.getData().add(new XYChart.Data("May", 39));
+        series2.getData().add(new XYChart.Data("Jun", 16));
+        series2.getData().add(new XYChart.Data("Jul", 55));
+        series2.getData().add(new XYChart.Data("Aug", 54));
+        series2.getData().add(new XYChart.Data("Sep", 48));
+        series2.getData().add(new XYChart.Data("Oct", 27));
+        series2.getData().add(new XYChart.Data("Nov", 37));
+        series2.getData().add(new XYChart.Data("Dec", 29));
+        
+        XYChart.Series series3 = new XYChart.Series();
+        series3.setName("Portfolio 3");
+        series3.getData().add(new XYChart.Data("Jan", 44));
+        series3.getData().add(new XYChart.Data("Feb", 35));
+        series3.getData().add(new XYChart.Data("Mar", 36));
+        series3.getData().add(new XYChart.Data("Apr", 33));
+        series3.getData().add(new XYChart.Data("May", 31));
+        series3.getData().add(new XYChart.Data("Jun", 26));
+        series3.getData().add(new XYChart.Data("Jul", 22));
+        series3.getData().add(new XYChart.Data("Aug", 25));
+        series3.getData().add(new XYChart.Data("Sep", 43));
+        series3.getData().add(new XYChart.Data("Oct", 44));
+        series3.getData().add(new XYChart.Data("Nov", 45));
+        series3.getData().add(new XYChart.Data("Dec", 44));
+        
+        Scene scene  = new Scene(lineChart,800,600);       
+        lineChart.getData().addAll(series1, series2, series3);
+       
+        stage.setScene(scene);
+        stage.show();
     }
 
     public static class Statistics {

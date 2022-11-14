@@ -1,6 +1,6 @@
-package com.example.atu;
+package ATU;
 
-import com.example.atu.MainController.Person;
+import ATU.MainController.Person;
 
 public class ATUEngine { 
 
@@ -160,7 +160,7 @@ public class ATUEngine {
         }
        return groups;
 
-   }
+}
 
 //    public int[][] getGroups() {
 //        // return the groups of students in the form of an 2d array

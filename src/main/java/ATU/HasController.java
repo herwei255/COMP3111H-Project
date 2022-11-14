@@ -1,4 +1,4 @@
-package com.example.atu;
+package ATU;
 
 /**
  * Denotes a component having a controller
