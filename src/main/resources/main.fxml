@@ -32,7 +32,8 @@
             <Insets right="-11.0" />
          </padding>
       </TableView>
-      <GridPane gridLinesVisible="true" layoutX="23.0" layoutY="245.0" prefHeight="171.0" prefWidth="388.0">
+      <GridPane gridLinesVisible="true" layoutX="23.0" layoutY="245.0" prefHeight="171.0" prefWidth="388.0" style="-fx-background-color: #93f9b911;
+        ">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="241.0" minWidth="10.0" prefWidth="60.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="241.0" minWidth="10.0" prefWidth="190.0" />
