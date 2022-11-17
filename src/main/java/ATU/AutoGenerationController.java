@@ -11,6 +11,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import ATU.models.Person;
 
 import java.awt.event.KeyEvent;
 import java.net.URL;
@@ -40,7 +41,7 @@ public class AutoGenerationController implements Initializable {
     @FXML
     private Button submitButton;
 
-    Property<ArrayList<MainController.Person>> students = new SimpleObjectProperty<>();
+    Property<ArrayList<Person>> students = new SimpleObjectProperty<>();
 
     @FXML
     void submitButtonClicked(ActionEvent event) {
@@ -61,9 +62,9 @@ public class AutoGenerationController implements Initializable {
             stage.close();
         } else {
             // Not validated
-            Node node = (Node) event.getSource();
-            Stage stage = (Stage) node.getScene().getWindow();
-            stage.close();
+            // Node node = (Node) event.getSource();
+            // Stage stage = (Stage) node.getScene().getWindow();
+            // stage.close();
         }
 
         event.consume();
@@ -75,58 +76,121 @@ public class AutoGenerationController implements Initializable {
     }
 
     /**
-     *  Force the fields to be numeric only
+     *  Force the fields to be numeric only, i.e. only input of digits will be accepted.
      */
     private void forceFieldsNumeric() {
-        // TextField[] fields = new TextField[averageK1EnergyField, averageK2EnergyField, numberOfStudentsField, probK3Tick1Field, probK3Tick2Field, probMyPreferenceTrue];
-        numberOfStudentsField.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue,
-                                String newValue) {
-                if (!newValue.matches("\\d*")) {
-                    numberOfStudentsField.setText(newValue.replaceAll("[^\\d]", ""));
-                }
+        numberOfStudentsField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                numberOfStudentsField.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+        averageK1EnergyField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                averageK1EnergyField.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+        averageK2EnergyField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                averageK2EnergyField.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+        probK3Tick1Field.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                probK3Tick1Field.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+        probK3Tick2Field.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                probK3Tick2Field.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+        probMyPreferenceTrue.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                probMyPreferenceTrue.setText(newValue.replaceAll("[^\\d]", ""));
             }
         });
     }
 
+    /**
+     * Validation checks for text fields in Auto Generation scene.
+     *
+     * @return true if all fields are within set range, and not null.
+     */
     boolean dataValidated() {
+        boolean noStudentsBool = true, avgK1Bool = true, avgK2Bool = true, k3Tick1Bool = true, k3Tick2Bool = true, myPrefBool = true;
+        numberOfStudentsField.setStyle("-fx-text-fill: black ;");
+        averageK1EnergyField.setStyle("-fx-text-fill: black ;");
+        averageK2EnergyField.setStyle("-fx-text-fill: black ;");
+        probK3Tick1Field.setStyle("-fx-text-fill: black ;");
+        probK3Tick2Field.setStyle("-fx-text-fill: black ;");
+        probMyPreferenceTrue.setStyle("-fx-text-fill: black ;");
+
         try {
             int noOfStudents = Integer.parseInt(numberOfStudentsField.getText());
-            if (!(noOfStudents > 0 && noOfStudents <= 900)) {
-                return false;
+            if (!(noOfStudents > 0 && noOfStudents <= 999)) {
+                numberOfStudentsField.setStyle("-fx-text-fill: red ;");
+                noStudentsBool = false;
             }
-
+        } catch (Exception e) {
+            numberOfStudentsField.setStyle("-fx-text-fill: red ;");
+            noStudentsBool = false;
+        }
+        try {
             int avgK1Energy = Integer.parseInt(averageK1EnergyField.getText());
             if (!(avgK1Energy > 0 && avgK1Energy <= 100)) {
-                return false;
+                averageK1EnergyField.setStyle("-fx-text-fill: red ;");
+                avgK1Bool = false;
             }
-
+        } catch (Exception e) {
+            averageK1EnergyField.setStyle("-fx-text-fill: red ;");
+            avgK1Bool = false;
+        }
+        try {
             int avgK2Energy = Integer.parseInt(averageK2EnergyField.getText());
             if (!(avgK2Energy > 0 && avgK2Energy <= 100)) {
-                return false;
+                averageK2EnergyField.setStyle("-fx-text-fill: red ;");
+                avgK2Bool = false;
             }
-
+        } catch (Exception e) {
+            averageK2EnergyField.setStyle("-fx-text-fill: red ;");
+            avgK2Bool = false;
+        }
+        try {
             int K3Tick1 = Integer.parseInt(probK3Tick1Field.getText());
-            if (!(avgK1Energy > 0 && avgK1Energy <= 100)) {
-                return false;
+            if (!(K3Tick1 > 0 && K3Tick1 <= 100)) {
+                probK3Tick1Field.setStyle("-fx-text-fill: red ;");
+                k3Tick1Bool = false;
             }
-
+        } catch (Exception e) {
+            probK3Tick1Field.setStyle("-fx-text-fill: red ;");
+            k3Tick1Bool = false;
+        }
+        try {
             int K3Tick2 = Integer.parseInt(probK3Tick2Field.getText());
-            if (!(avgK2Energy > 0 && avgK2Energy <= 100)) {
-                return false;
+            if (!(K3Tick2 > 0 && K3Tick2 <= 100)) {
+                probK3Tick2Field.setStyle("-fx-text-fill: red ;");
+                k3Tick2Bool = false;
             }
-
+        } catch (Exception e) {
+            probK3Tick2Field.setStyle("-fx-text-fill: red ;");
+            k3Tick2Bool = false;
+        }
+        try {
             int myPref = Integer.parseInt(probMyPreferenceTrue.getText());
             if (!(myPref > 0 && myPref <= 100)) {
-                return false;
+                probMyPreferenceTrue.setStyle("-fx-text-fill: red ;");
+                myPrefBool = false;
             }
-
-            return true;
         } catch (Exception e) {
-            return false;
+            probMyPreferenceTrue.setStyle("-fx-text-fill: red ;");
+            myPrefBool = false;
         }
 
+        if (noStudentsBool && avgK1Bool && avgK2Bool && k3Tick1Bool && k3Tick2Bool && myPrefBool) {
+            return true;
+        }
+
+        return false;
     }
 
 

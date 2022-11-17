@@ -6,7 +6,7 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 
-import ATU.MainController.Person;
+import ATU.models.Person;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -94,11 +94,13 @@ public class OutputController  {
             int k2_sum = 0;
             for (int j = 0; j < groups[i].length; j++) {
                 //calculate the average energy level of each group
-                k1_sum += Integer.parseInt(groups[i][j].getK1energy());
-                k2_sum += Integer.parseInt(groups[i][j].getK2energy());
-                
-                //print the student id
-                System.out.println(groups[i][j].getStudentid());
+                if (groups[i][j] != null) {
+                    k1_sum += Integer.parseInt(groups[i][j].getK1energy());
+                    k2_sum += Integer.parseInt(groups[i][j].getK2energy());
+
+                    //print the student id
+                    System.out.println(groups[i][j].getStudentid());
+                }
             }
             float k1_avg =  (float) k1_sum / groups[i].length;
             float k2_avg =  (float) k2_sum / groups[i].length;
