@@ -296,45 +296,6 @@ public class MainController implements Initializable {
         K1EnergyLabel.setText("(" + avgK1Energy + ", " + minK1Energy + ", " + maxK1Energy + ")");
     }
     void call() {
-        //transform tableview of studentTable to person array
-        Person[] personArr = studentTable.getItems().stream().toArray(Person[]::new);
-        ATUEngine atuEngine = new ATUEngine(personArr);
-        Person [][] groups; 
-        groups = atuEngine.createGroups();
-
-        //create a k1 and k2, average, array list
-        ArrayList<Float> k1ArrayList = new ArrayList<Float>();
-        ArrayList<Float> k2ArrayList = new ArrayList<Float>();
-        ArrayList<Float> avgArrayList = new ArrayList<Float>();
-
-        //print out groups
-        for (int i = 0; i < groups.length; i++) {
-            System.out.println("Group " + (i+1));
-            int k1_sum = 0;
-            int k2_sum = 0;
-            for (int j = 0; j < groups[i].length; j++) {
-                //calculate the average energy level of each group
-                k1_sum += Integer.parseInt(groups[i][j].getK1energy());
-                k2_sum += Integer.parseInt(groups[i][j].getK2energy());
-                
-                //print the student id
-                System.out.println(groups[i][j].getStudentid());
-            }
-            float k1_avg =  (float) k1_sum / groups[i].length;
-            float k2_avg =  (float) k2_sum / groups[i].length;
-
-            k1ArrayList.add(k1_avg);
-            k2ArrayList.add(k2_avg);
-            avgArrayList.add((float)(k1_avg * 0.5 + k2_avg * 0.5));
-
-            System.out.println("K1: " + k1ArrayList.get(i) + " K2: " + k2ArrayList.get(i) + " Avg: " + avgArrayList.get(i));                
-        }
-    }
-
-
-
-
-    void call() {
         // get array from studentTable
         ObservableList<Person> person_data = studentTable.getItems();
         // convert observablelist to array
