@@ -182,11 +182,9 @@ public class MainController implements Initializable {
         initializeTable();
         initializeStats();
         call();
-        // Set listeners
-
         updateFilters();
 
-
+        studentTable.setMinWidth(1035);
 
     }
 

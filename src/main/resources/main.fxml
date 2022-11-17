@@ -15,7 +15,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620.0" prefWidth="966.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ATU.MainController">
    <children>
-      <TableView fx:id="studentTable" editable="true" layoutX="23.0" layoutY="23.0" prefHeight="200.0" prefWidth="936.0">
+      <TableView fx:id="studentTable" editable="true" layoutX="23.0" layoutY="23.0" prefHeight="200.0" prefWidth="794.0" stylesheets="@tableView.css">
         <columns>
           <TableColumn fx:id="index" prefWidth="75.0" text="Index" />
           <TableColumn fx:id="studentID" prefWidth="75.0" text="Student_ID" />
@@ -26,8 +26,11 @@
             <TableColumn fx:id="k3Tick1" prefWidth="75.0" text="K3_Tick1" />
             <TableColumn fx:id="k3Tick2" prefWidth="75.0" text="K3_Tick2" />
             <TableColumn fx:id="myPreference" prefWidth="102.0" text="My_Preference" />
-            <TableColumn fx:id="concerns" prefWidth="75.0" text="Concerns" />
+            <TableColumn fx:id="concerns" prefWidth="77.3560791015625" text="Concerns" />
         </columns>
+         <padding>
+            <Insets right="-11.0" />
+         </padding>
       </TableView>
       <GridPane gridLinesVisible="true" layoutX="23.0" layoutY="245.0" prefHeight="171.0" prefWidth="388.0">
         <columnConstraints>
