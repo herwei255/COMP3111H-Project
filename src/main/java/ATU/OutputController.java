@@ -154,7 +154,6 @@ public class OutputController {
             XYChart.Data<String, Number> data = k1k2AvgSeries.getData().get(i);
             String formattedString = String.format(" Team %d \n K1 + K2 Average: %.2f \n K1 Average: %.2f \n K2 Average: %.2f", i+1 ,data.getYValue(),k1AvgSeries.getData().get(i).getYValue(), k2AvgSeries.getData().get(i).getYValue());
             data.getNode().setOnMouseClicked(e -> label.setText(formattedString));
-            
         }
             
     }
