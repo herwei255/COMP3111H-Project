@@ -11,7 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
 
-import ATU.MainController.Person;
+import ATU.models.Person;
 
 import java.net.URL;
 import java.util.ArrayList;

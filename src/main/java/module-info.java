@@ -6,4 +6,5 @@ module ATU {
 
     opens ATU to javafx.fxml;
     exports ATU;
+    exports ATU.models;
 }

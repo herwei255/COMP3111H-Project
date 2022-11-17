@@ -114,7 +114,7 @@ package ATU;
 
 
 import java.util.ArrayList;
-import ATU.MainController.Person;
+import ATU.models.Person;
 
 public class StudentAutoGenerator {
     static ArrayList<Person> students = new ArrayList<Person>();

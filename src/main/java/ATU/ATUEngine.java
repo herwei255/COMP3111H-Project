@@ -1,6 +1,6 @@
 package ATU;
 
-import ATU.MainController.Person;
+import ATU.models.Person;
 
 public class ATUEngine { 
 
