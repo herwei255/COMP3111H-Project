@@ -1,120 +1,7 @@
 package ATU;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import java.util.ArrayList;
-import ATU.MainController.Person;
+import ATU.models.Person;
 
 public class StudentAutoGenerator {
     static ArrayList<Person> students = new ArrayList<Person>();
@@ -168,7 +55,7 @@ public class StudentAutoGenerator {
             String firstName = firstNames[(int)(Math.random() * firstNames.length)];
             String lastName = lastNames[(int)(Math.random() * lastNames.length)];
             String fullName = firstName + " " + lastName;
-            String email = firstName + "" + lastName.toUpperCase() + "@connect.ust.hk";
+            String email = firstName + "" + lastName.toUpperCase() + studentID.substring(studentID.length() -2) +"@connect.ust.hk";
             String concerns = firstName == "Blaise" ? "I need good teammates" : "";
 
             // K1 Energy, K2 Energy

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="487.0" prefWidth="810.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ATU.LookUpController">
+   <children>
+      <Text layoutX="198.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Student Look Up Service" textAlignment="CENTER" underline="true" wrappingWidth="412.13671875">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Text>
+      <TextField fx:id="studentIDSearchBox" layoutX="43.0" layoutY="222.0" prefHeight="33.0" prefWidth="183.0" promptText="Student ID" />
+      <TextField fx:id="studentIDSearchBox1" layoutX="43.0" layoutY="178.0" prefHeight="33.0" prefWidth="183.0" promptText="Name" />
+      <Button layoutX="43.0" layoutY="274.0" mnemonicParsing="false" onAction="#serachButtonPressed" prefHeight="25.0" prefWidth="93.0" text="Search" />
+      <GridPane fx:id="lookUpTable" gridLinesVisible="true" layoutX="261.0" layoutY="158.0" prefHeight="231.0" prefWidth="524.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="256.0" minWidth="10.0" prefWidth="106.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="418.0" minWidth="10.0" prefWidth="418.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="115.0" minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="243.0" minHeight="10.0" prefHeight="171.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="33.0" prefWidth="111.0" text="User's Input" />
+            <Label alignment="CENTER" prefHeight="33.0" prefWidth="113.0" text="Data Output" GridPane.rowIndex="1" />
+            <GridPane gridLinesVisible="true" prefHeight="49.0" prefWidth="375.0" GridPane.columnIndex="1">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="188.0" minWidth="10.0" prefWidth="109.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="280.0" minWidth="10.0" prefWidth="275.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="38.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="65.0" minHeight="10.0" prefHeight="42.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="155.0" text="My Student ID:" />
+                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="154.0" text="My Name:" GridPane.rowIndex="1" />
+                  <Label fx:id="myID" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="284.0" GridPane.columnIndex="1" />
+                  <Label fx:id="myName" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="279.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+               </children>
+            </GridPane>
+            <GridPane gridLinesVisible="true" prefHeight="199.0" prefWidth="418.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="205.0" minWidth="10.0" prefWidth="138.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="283.0" minWidth="10.0" prefWidth="280.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="54.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="127.0" minHeight="10.0" prefHeight="86.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="126.0" minHeight="10.0" prefHeight="56.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="124.0" text="My Team No:" />
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="131.0" text="My Teammates:" GridPane.rowIndex="1" />
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="132.0" text="Our Team Energy:" GridPane.rowIndex="2" />
+                  <Label fx:id="teamNumber" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="279.0" GridPane.columnIndex="1" />
+                  <GridPane gridLinesVisible="true" prefWidth="267.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints maxHeight="61.0" minHeight="10.0" prefHeight="29.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="57.0" minHeight="10.0" prefHeight="57.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label alignment="CENTER" prefHeight="17.0" prefWidth="96.0" text="1" />
+                        <Label alignment="CENTER" prefHeight="17.0" prefWidth="99.0" text="2" GridPane.columnIndex="1" />
+                        <Label alignment="CENTER" prefHeight="17.0" prefWidth="98.0" text="3" GridPane.columnIndex="2" />
+                        <Label fx:id="teammateOneName" alignment="CENTER" contentDisplay="CENTER" prefHeight="52.0" prefWidth="93.0" textAlignment="CENTER" wrapText="true" GridPane.rowIndex="1" />
+                        <Label fx:id="teammateTwoName" alignment="CENTER" contentDisplay="CENTER" prefHeight="54.0" prefWidth="93.0" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label fx:id="teammateThreeName" alignment="CENTER" contentDisplay="CENTER" prefHeight="52.0" prefWidth="93.0" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                     </children>
+                  </GridPane>
+                  <GridPane gridLinesVisible="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints maxHeight="58.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="81.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="143.0" text="K1 Average" />
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="143.0" text="K2 Average" GridPane.columnIndex="1" />
+                        <Label fx:id="k1Avg" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="141.0" GridPane.rowIndex="1" />
+                        <Label fx:id="k2Avg" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="141.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                     </children>
+                  </GridPane>
+               </children>
+            </GridPane>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </GridPane>
+      <Label fx:id="warning" layoutX="43.0" layoutY="324.0" prefHeight="56.0" prefWidth="155.0" text="Student Not Found! \n Please input correct student name or student ID" wrapText="true" />
+   </children>
+</Pane>
