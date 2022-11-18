@@ -12,11 +12,13 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.control.Button;
 import javafx.event.ActionEvent;
+import javafx.stage.Stage;
+
 
 
 import ATU.models.Person;
 
-
+import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -59,10 +61,23 @@ public class OutputController {
     @FXML
     void lookUpBtnOnPressed(ActionEvent event) {
         System.out.println("Look up button pressed");
+        Stage stage = new Stage();
+        stage.setTitle("Student Look Up");
+
+        LookUpScene scene = null;
+        try {
+            scene = new LookUpScene();
+            scene.getController().initLookUp(groupedArr);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        stage.setScene(scene);
+        stage.show();
 
     }
     // make a person array
     private Person[] personArr;
+    private Person[][] groupedArr;
 
     // inititalize the person list
     public void initOutput(Person[] personArr) {
@@ -90,9 +105,9 @@ public class OutputController {
 
         // create ATUengine
         ATUEngine atuEngine = new ATUEngine(personArr);
-        Person[][] groups = atuEngine.createGroups();
-        plotTeamAverage(groups);
-        calculateStatistics(groups);
+        groupedArr = atuEngine.createGroups();
+        plotTeamAverage(groupedArr);
+        calculateStatistics(groupedArr);
     }
 
     void plotStudentKeyEnergy(Person[] persons) {

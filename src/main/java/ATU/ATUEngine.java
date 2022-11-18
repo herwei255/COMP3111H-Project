@@ -353,7 +353,7 @@ public class ATUEngine {
                     num_of_ppl++;
                     avg_k1 = avg_k1 + Integer.parseInt(groups[i][j].getK1energy());
                     avg_k2 = avg_k2 + Integer.parseInt(groups[i][j].getK2energy());
-                    System.out.print(groups[i][j].getStudentid() + " ");
+                    System.out.print(groups[i][j].getStudentname() + " ");
                 }
             }
             avg_k1 = avg_k1 / num_of_ppl;

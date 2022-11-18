@@ -1,6 +1,7 @@
 package ATU;
 
 import ATU.models.Person;
+
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
