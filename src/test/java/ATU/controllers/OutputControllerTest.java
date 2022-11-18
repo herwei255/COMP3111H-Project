@@ -13,5 +13,6 @@ class OutputControllerTest {
 
     @Test
     void calculateStatistics() {
+
     }
 }

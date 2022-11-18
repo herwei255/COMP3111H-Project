@@ -17,6 +17,10 @@ public class App extends Application {
     private MainScene mainScene;
     private OutputScene outputScene;
 
+    public MainScene getMainScene() {
+        return mainScene;
+    }
+
     @Override
     public void start(Stage stage) throws IOException {
         MainScene scene = new MainScene();
@@ -26,12 +30,16 @@ public class App extends Application {
         this.stage = stage;
         stage.setScene(scene);
         stage.show();
-       
+
         // startScene.getRoot().addEventFilter(MapEvent.OPEN_MAP_EVENT_TYPE, this::onOpenMap);
 
     }
 
     public static void main(String[] args) {
         launch();
+    }
+
+    public Stage getStage() {
+        return stage;
     }
 }
