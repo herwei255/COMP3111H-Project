@@ -4,32 +4,70 @@ import ATU.models.Person;
 import java.util.HashMap;
 
 public class ATUEngine { 
+
     HashMap<Integer, Integer> selected_students;
+
     private Person[] k1_students;
     private Person[] group_A;
     private Person[] group_B;
     private Person[] group_C;
     private Person[] missing_person;
+
     private boolean group_A_empty = false;
     private boolean group_B_empty = false;
     private boolean group_C_empty = false;
+
     private int numStudents;
+
     private double averageK1;
     private double averageK2;
     private double averageK1K2;
-    // private int num_people_in_group_A_C;
-    // private int num_people_in_group_B;
 
+    // helper function to print the address of the inputted object
     public String printAddress(Object o) {
     return o.getClass().getName() + "@" + 
            Integer.toHexString(System.identityHashCode(o));
     }
 
+    // helper function to print 1D array with type Person
     public void printArray(Person[] array) {
         for (int i = 0; i < array.length; i++) {
-
             System.out.println(i + " " + array[i].getStudentid() + " " + array[i].getK1energy() + " " + array[i].getK2energy());
-            
+        }
+    }
+
+    // helper function to check whether all students have been assigned to a group
+    protected void checkAllStudents() {
+        group_A_empty = true;
+        group_B_empty = true;
+        group_C_empty = true;
+        int index = 0;
+        System.out.println("Group A missing ppl:");
+        for (int i = 0; i < group_A.length; i++) {
+            if (group_A[i] != null) {
+                group_A_empty = false;
+                System.out.println("SID =  " + group_A[i].getStudentid());
+                missing_person[index] = group_A[i];
+                index++;
+            }
+        }
+        System.out.println("Group B missing ppl:");
+        for (int i = 0; i < group_B.length; i++) {
+            if (group_B[i] != null) {
+                group_B_empty = false;
+                System.out.println("SID =  " + group_B[i].getStudentid());
+                missing_person[index] = group_B[i];
+                index++;
+            }
+        }
+        System.out.println("Group C missing ppl:");
+        for (int i = 0; i < group_C.length; i++) {
+            if (group_C[i] != null) {
+                group_C_empty = false;
+                System.out.println("SID =  " + group_C[i].getStudentid());
+                missing_person[index] = group_C[i];
+                index++;
+            }
         }
     }
 
@@ -50,6 +88,7 @@ public class ATUEngine {
             k1_students[i] = new Person(people[i].getStudentid(), people[i].getStudentname(), people[i].getEmail(), people[i].getK1energy(), people[i].getK2energy(), people[i].getK3trick1(), people[i].getK3trick2(), people[i].getMypreference(), people[i].getConcerns());
         }
 
+        // sort the k1_students array by desending k1
         for (int i = 0; i < k1_students.length; i++) {
             for (int j = i + 1; j < k1_students.length; j++) {
                 if (Integer.parseInt(k1_students[i].getK1energy()) < Integer.parseInt(k1_students[j].getK1energy())) {
@@ -60,7 +99,7 @@ public class ATUEngine {
             }
         }
 
-        // sort sorted_students array by this formula: (0.55 * k1 + 0.45 * k2)
+        // sort the people array by this formula: (0.55 * k1 + 0.45 * k2)
         for (int i = 0; i < people.length; i++) {
             for (int j = i + 1; j < people.length; j++) {
                 if (Double.parseDouble(people[i].getK1energy()) * 0.55 + Double.parseDouble(people[i].getK2energy()) * 0.45 < Double.parseDouble(people[j].getK1energy()) * 0.55 + Double.parseDouble(people[j].getK2energy()) * 0.45) {
@@ -71,6 +110,7 @@ public class ATUEngine {
             }
         }
 
+        // calculate the average k1 and k2 values for the people array
         for (int i = 0; i < people.length; i++) {
             averageK1 += Double.parseDouble(people[i].getK1energy());
             averageK2 += Double.parseDouble(people[i].getK2energy());
@@ -81,23 +121,20 @@ public class ATUEngine {
 
         averageK1K2 = 0.55 * averageK1 + 0.45 * averageK2;
 
+        // divide the students into 3 different groups, A, B, and C where A represents students with high k1k2 average and C represents students with low k1k2 average
         for (int i = 0; i < num_people_in_group_B; i++) {
             if (i < num_people_in_group_A_C) {
                 group_A[i] = new Person(people[i].getStudentid(), people[i].getStudentname(), people[i].getEmail(), people[i].getK1energy(), people[i].getK2energy(), people[i].getK3trick1(), people[i].getK3trick2(), people[i].getMypreference(), people[i].getConcerns());
-                group_C[i] = new Person(people[i + num_people_in_group_A_C + num_people_in_group_B].getStudentid(), people[i + num_people_in_group_A_C + num_people_in_group_B].getStudentname(), people[i + num_people_in_group_A_C + num_people_in_group_B].getEmail(), people[i + num_people_in_group_A_C + num_people_in_group_B].getK1energy(), people[i + num_people_in_group_A_C + num_people_in_group_B].getK2energy(), people[i + num_people_in_group_A_C + num_people_in_group_B].getK3trick1(), people[i + num_people_in_group_A_C + num_people_in_group_B].getK3trick2(), people[i + num_people_in_group_A_C + num_people_in_group_B].getMypreference(), people[i + num_people_in_group_A_C + num_people_in_group_B].getConcerns());
+                int c_index = i + num_people_in_group_A_C + num_people_in_group_B;
+                group_C[i] = new Person(people[c_index].getStudentid(), people[c_index].getStudentname(), people[c_index].getEmail(), people[c_index].getK1energy(), people[c_index].getK2energy(), people[c_index].getK3trick1(), people[c_index].getK3trick2(), people[c_index].getMypreference(), people[c_index].getConcerns());
             }
-            group_B[i] = new Person(people[i + num_people_in_group_A_C].getStudentid(), people[i + num_people_in_group_A_C].getStudentname(), people[i + num_people_in_group_A_C].getEmail(), people[i + num_people_in_group_A_C].getK1energy(), people[i + num_people_in_group_A_C].getK2energy(), people[i + num_people_in_group_A_C].getK3trick1(), people[i + num_people_in_group_A_C].getK3trick2(), people[i + num_people_in_group_A_C].getMypreference(), people[i + num_people_in_group_A_C].getConcerns());
+            int b_index = i + num_people_in_group_A_C;
+            group_B[i] = new Person(people[b_index].getStudentid(), people[b_index].getStudentname(), people[b_index].getEmail(), people[b_index].getK1energy(), people[b_index].getK2energy(), people[b_index].getK3trick1(), people[b_index].getK3trick2(), people[b_index].getMypreference(), people[b_index].getConcerns());
         }
-
-        // System.out.println("group A " + "length = " + group_A.length);
-        // printArray(group_A);
-        // System.out.println("group B " + "length = " + group_B.length);
-        // printArray(group_B);
-        // System.out.println("group C " + "length = " + group_C.length);
-        // printArray(group_C);
 
     }
 
+    // helper function to know which group the student is belong to
     protected int findStudentGroup(int sid) {
   
         for (int i = 0; i < group_A.length; i++) {
@@ -124,6 +161,7 @@ public class ATUEngine {
         return -1;
     }
 
+    // function to remove the students from the respective groups
     protected void removeStudent(int sid, int group) {
         if (group == 1) {
             for (int i = 0; i < group_A.length; i++) {
@@ -152,8 +190,8 @@ public class ATUEngine {
         }
     }
 
+    // function to select student from the highest k1 to ensure every team has at least one member with k1 >= average k1
     protected Person selectK1Student(int index) {
-        // select the highest k1 energy student
         Person selected = k1_students[index];
         int group = findStudentGroup(Integer.parseInt(selected.getStudentid()));
         selected_students.put(Integer.parseInt(selected.getStudentid()), group);
@@ -161,8 +199,8 @@ public class ATUEngine {
         return selected;
     }
 
+    // function to select student from the chosen groups based on the existing team members's k1 and k2 values
     protected Person selectFromGroup(int which_group, Person group[], int size) {
-        // select the highest score student, then remove it from both k1 k2 arrays
         int cumulative_k1 = 0;
         int cumulative_k2 = 0;
         int real_size = 0;
@@ -205,7 +243,6 @@ public class ATUEngine {
             if (the_group[i] != null) {
                 double avg_temp = 0;
                 double distance_temp = 0;
-                // double avg_all = 0.55 * avg_temp_k1 + 0.45 * avg_temp_k2;
                 if (k == 1) {
                     avg_temp = (cumulative_k1 + Integer.parseInt(the_group[i].getK1energy())) / (real_size + 1);
                     distance_temp = Math.abs(avg_temp - averageK1);
@@ -224,85 +261,17 @@ public class ATUEngine {
         return selected;
     }
 
-    protected void checkAllStudents() {
-        group_A_empty = true;
-        group_B_empty = true;
-        group_C_empty = true;
-        int index = 0;
-        System.out.println("Group A missing ppl:");
-        for (int i = 0; i < group_A.length; i++) {
-            if (group_A[i] != null) {
-                group_A_empty = false;
-                System.out.println("SID =  " + group_A[i].getStudentid());
-                System.out.println("k1 = " + group_A[i].getK1energy());
-                System.out.println("k2 = " + group_A[i].getK2energy());
-                System.out.println();
-                missing_person[index] = group_A[i];
-                index++;
-            }
-        }
-        System.out.println("Group B missing ppl:");
-        for (int i = 0; i < group_B.length; i++) {
-            if (group_B[i] != null) {
-                group_B_empty = false;
-                System.out.println("SID =  " + group_B[i].getStudentid());
-                System.out.println("k1 = " + group_B[i].getK1energy());
-                System.out.println("k1 = " + group_B[i].getK2energy());
-                System.out.println();
-                missing_person[index] = group_B[i];
-                index++;
-            }
-        }
-        System.out.println("Group C missing ppl:");
-        for (int i = 0; i < group_C.length; i++) {
-            if (group_C[i] != null) {
-                group_C_empty = false;
-                System.out.println("SID =  " + group_C[i].getStudentid());
-                System.out.println("k1 = " + group_C[i].getK1energy());
-                System.out.println("k1 = " + group_C[i].getK2energy());
-                System.out.println();
-                missing_person[index] = group_C[i];
-                index++;
-            }
-        }
-
-    }
-
-    public boolean checkStudent(int studentId, Person[] studentsArray, int length) {
-        // return the student at the given index
-        for (int i = 0; i < length; i++) {
-            if (studentsArray[i] != null) {
-                if (Integer.parseInt(studentsArray[i].getStudentid()) == studentId) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    public Person getPerson (int studentId, Person[] studentsArray, int length) {
-        // return the student at the given index
-        for (int i = 0; i < length; i++) {
-            if (studentsArray[i] != null) {
-                if (Integer.parseInt(studentsArray[i].getStudentid()) == studentId) {
-                    return studentsArray[i];
-                }
-            }
-        }
-        return null;
-    }
-
-   public Person[][] createGroups() {
-        // group the students into groups of 3 or 4
-        // minimize the standard deviation of the group's average based on the k1 and k2 values
-
+    public Person[][] createGroups() {
        int num = (int) (numStudents / 3);
        Person[][] groups = new Person[num][3];
 
+        // select the first student with high k1
        for (int i = 0; i < Math.floorDiv(numStudents, 3); i++) {
             groups[i] = new Person[4];
             groups[i][0] = selectK1Student(i);
        }
+
+       // select the second and the third members
        for (int i = 0; i < Math.floorDiv(numStudents, 3); i++) {
             int first_student_group = selected_students.get(Integer.parseInt(groups[i][0].getStudentid()));
             if (first_student_group == 1) {
@@ -318,19 +287,21 @@ public class ATUEngine {
        }
 
         checkAllStudents();
+
+        // if needed, assign the fourth member to the group
         int num_groups = Math.floorDiv(numStudents, 3);
         for (int i = 0; i < missing_person.length; ++i){
             if (missing_person[i] != null) {
                 double distance_k1 = Double.MAX_VALUE;
                 int missing_index = 0;
-
                 double iter = Math.floor(num_groups * 0.6);
+                double avg_temp_k1 = 0;
                 for (int j = num_groups - 1; j >= iter; j--) {
-                    double avg_temp_k1 = Integer.parseInt(groups[j][0].getK1energy()) + Integer.parseInt(groups[j][1].getK1energy()) + Integer.parseInt(groups[j][2].getK1energy()) + Integer.parseInt(missing_person[i].getK1energy());
-                    // avg_temp_k2 = Integer.parseInt(groups[j][0].getK2energy()) + Integer.parseInt(groups[j][1].getK2energy()) + Integer.parseInt(groups[j][2].getK2energy());
-                    avg_temp_k1 = avg_temp_k1 / 4;
-                    // avg_temp_k2 = avg_temp_k2 / 4;
-
+                    for (int k = 0; k < 3; k++) {
+                        avg_temp_k1 += Integer.parseInt(groups[j][k].getK1energy());
+                    }
+                    avg_temp_k1 += Integer.parseInt(missing_person[i].getK1energy());
+                    avg_temp_k1 = avg_temp_k1 /4;
                     double distance_temp = Math.abs(avg_temp_k1 - averageK1);
                     if (distance_temp <= distance_k1) {
                         distance_k1 = distance_temp;
@@ -339,6 +310,171 @@ public class ATUEngine {
                 }
                 groups[missing_index][3] = missing_person[i];
                 missing_person[i] = null;
+            }
+        }
+
+        // try to spread those who has leader preference to different groups that does not have any leader preference while maintaining the SD
+        for (int i = 0; i < num_groups; i++) {
+            int num_leader = 0;
+            for (int j = 0; j < 4; j++) {
+                if (groups[i][j] != null) {
+                    if (groups[i][j].getMypreference() == "1") {
+                        num_leader++;
+                    }
+                }
+            }
+            
+            if (num_leader > 1) {
+                for (int j = 0; j < 4; j++) {
+                    if (groups[i][j] != null) {
+                        if (groups[i][j].getMypreference() == "1") {
+                            double avg_k1_k2 = 0.55 * Integer.parseInt(groups[i][j].getK1energy()) + 0.45 * Integer.parseInt(groups[i][j].getK2energy());
+                            for (int k = 0; k < num_groups; k++) {
+                                if (k != i) {
+                                    int temp_num_leader = 0;
+                                    for (int z = 0; z < 4; z++) {
+                                        if (groups[k][z] != null) {
+                                            if (groups[k][z].getMypreference() == "1") {
+                                                temp_num_leader++;
+                                            }
+                                        }
+                                    }
+                                    if (temp_num_leader == 0) {
+                                        for (int l = 0; l < 4; l++) {
+                                            if (groups[k][l] != null) {
+                                                double avg_k1_k2_temp = 0.55 * Integer.parseInt(groups[k][l].getK1energy()) + 0.45 * Integer.parseInt(groups[k][l].getK2energy());
+                                                if (avg_k1_k2_temp == avg_k1_k2 && groups[k][l].getMypreference() != "1") {
+                                                    Person temp = groups[i][j];
+                                                    groups[i][j] = groups[k][l];
+                                                    groups[k][l] = temp;
+                                                    num_leader--;
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                if (num_leader == 1) {
+                                    break;
+                            }
+                            }
+                            if (num_leader == 1) {
+                                break;
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
+
+        // try to spread those who are willing to allocate more time on the project while maintaining the SD
+        for (int i = 0; i < num_groups; i++) {
+            int k3 = 0;
+            for (int j = 0; j < 4; j++) {
+                if (groups[i][j] != null) {
+                    if (groups[i][j].getK3trick2() == "1") {
+                        k3++;
+                    }
+                }
+            }
+            
+            if (k3 > 1) {
+                for (int j = 0; j < 4; j++) {
+                    if (groups[i][j] != null) {
+                        if (groups[i][j].getK3trick2() == "1") {
+                            double avg_k1_k2 = 0.55 * Integer.parseInt(groups[i][j].getK1energy()) + 0.45 * Integer.parseInt(groups[i][j].getK2energy());
+                            for (int k = 0; k < num_groups; k++) {
+                                if (k != i) {
+                                    int temp_k2 = 0;
+                                    for (int z = 0; z < 4; z++) {
+                                        if (groups[k][z] != null) {
+                                            if (groups[k][z].getK3trick2() == "1") {
+                                                temp_k2++;
+                                            }
+                                        }
+                                    }
+                                    if (temp_k2 == 0) {
+                                        for (int l = 0; l < 4; l++) {
+                                            if (groups[k][l] != null) {
+                                                double avg_k1_k2_temp = 0.55 * Integer.parseInt(groups[k][l].getK1energy()) + 0.45 * Integer.parseInt(groups[k][l].getK2energy());
+                                                if (avg_k1_k2_temp == avg_k1_k2 && groups[k][l].getK3trick2() != "1") {
+                                                    Person temp = groups[i][j];
+                                                    groups[i][j] = groups[k][l];
+                                                    groups[k][l] = temp;
+                                                    k3--;
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                if (k3 == 1) {
+                                    break;
+                            }
+                            }
+                            if (k3 == 1) {
+                                break;
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
+
+        // try to spread those who are creative while maintaining the SD
+        for (int i = 0; i < num_groups; i++) {
+            int k3 = 0;
+            for (int j = 0; j < 4; j++) {
+                if (groups[i][j] != null) {
+                    if (groups[i][j].getK3trick1() == "1") {
+                        k3++;
+                    }
+                }
+            }
+            
+            if (k3 > 1) {
+                for (int j = 0; j < 4; j++) {
+                    if (groups[i][j] != null) {
+                        if (groups[i][j].getK3trick1() == "1") {
+                            double avg_k1_k2 = 0.55 * Integer.parseInt(groups[i][j].getK1energy()) + 0.45 * Integer.parseInt(groups[i][j].getK2energy());
+                            for (int k = 0; k < num_groups; k++) {
+                                if (k != i) {
+                                    int temp_k2 = 0;
+                                    for (int z = 0; z < 4; z++) {
+                                        if (groups[k][z] != null) {
+                                            if (groups[k][z].getK3trick1() == "1") {
+                                                temp_k2++;
+                                            }
+                                        }
+                                    }
+                                    if (temp_k2 == 0) {
+                                        for (int l = 0; l < 4; l++) {
+                                            if (groups[k][l] != null) {
+                                                double avg_k1_k2_temp = 0.55 * Integer.parseInt(groups[k][l].getK1energy()) + 0.45 * Integer.parseInt(groups[k][l].getK2energy());
+                                                if (avg_k1_k2_temp == avg_k1_k2 && groups[k][l].getK3trick1() != "1") {
+                                                    Person temp = groups[i][j];
+                                                    groups[i][j] = groups[k][l];
+                                                    groups[k][l] = temp;
+                                                    k3--;
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                if (k3 == 1) {
+                                    break;
+                            }
+                            }
+                            if (k3 == 1) {
+                                break;
+                            }
+                        }
+                    }
+                }
+
             }
         }
 
@@ -367,8 +503,8 @@ public class ATUEngine {
         System.out.printf("\nTotal Average k2: %,.2f", averageK2);
         System.out.printf("\nTotal Average all: %,.2f", averageK1K2);
         System.out.println();
+
        return groups;
 
-}
-
+    }
 }
