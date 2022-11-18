@@ -15,7 +15,6 @@ public class Person {
     private final SimpleStringProperty k3trick2;
     private final SimpleStringProperty mypreference;
     private final SimpleStringProperty concerns;
-    private SimpleStringProperty groupID;
 
     public Person(String student_id, String student_name, String email, String k1_energy, String k2_energy, String k3_trick1,
                   String k3_trick2, String my_preference, String concerns) {
@@ -41,18 +40,6 @@ public class Person {
 
     public void setEmail(String email) {
         this.email.set(email);
-    }
-
-    public String getGroupID() {
-        return groupID.get();
-    }
-
-    public SimpleStringProperty groupIDProperty() {
-        return groupID;
-    }
-
-    public void setGroupID(String groupID) {
-        this.groupID.set(groupID);
     }
 
     public String getIndex() {
