@@ -9,6 +9,10 @@ public class ATUEngine {
     private Person[] group_A;
     private Person[] group_B;
     private Person[] group_C;
+    private Person[] missing_person;
+    private boolean group_A_empty = false;
+    private boolean group_B_empty = false;
+    private boolean group_C_empty = false;
     private int numStudents;
     private double averageK1;
     private double averageK2;
@@ -38,6 +42,7 @@ public class ATUEngine {
         group_A = new Person[num_people_in_group_A_C];
         group_B = new Person[num_people_in_group_B];
         group_C = new Person[num_people_in_group_A_C];
+        missing_person = new Person[2];
         numStudents = people.length;
 
         // deep copy the people array into k1_students
@@ -219,6 +224,50 @@ public class ATUEngine {
         return selected;
     }
 
+    protected void checkAllStudents() {
+        group_A_empty = true;
+        group_B_empty = true;
+        group_C_empty = true;
+        int index = 0;
+        System.out.println("Group A missing ppl:");
+        for (int i = 0; i < group_A.length; i++) {
+            if (group_A[i] != null) {
+                group_A_empty = false;
+                System.out.println("SID =  " + group_A[i].getStudentid());
+                System.out.println("k1 = " + group_A[i].getK1energy());
+                System.out.println("k2 = " + group_A[i].getK2energy());
+                System.out.println();
+                missing_person[index] = group_A[i];
+                index++;
+            }
+        }
+        System.out.println("Group B missing ppl:");
+        for (int i = 0; i < group_B.length; i++) {
+            if (group_B[i] != null) {
+                group_B_empty = false;
+                System.out.println("SID =  " + group_B[i].getStudentid());
+                System.out.println("k1 = " + group_B[i].getK1energy());
+                System.out.println("k1 = " + group_B[i].getK2energy());
+                System.out.println();
+                missing_person[index] = group_B[i];
+                index++;
+            }
+        }
+        System.out.println("Group C missing ppl:");
+        for (int i = 0; i < group_C.length; i++) {
+            if (group_C[i] != null) {
+                group_C_empty = false;
+                System.out.println("SID =  " + group_C[i].getStudentid());
+                System.out.println("k1 = " + group_C[i].getK1energy());
+                System.out.println("k1 = " + group_C[i].getK2energy());
+                System.out.println();
+                missing_person[index] = group_C[i];
+                index++;
+            }
+        }
+
+    }
+
     public boolean checkStudent(int studentId, Person[] studentsArray, int length) {
         // return the student at the given index
         for (int i = 0; i < length; i++) {
@@ -251,7 +300,7 @@ public class ATUEngine {
        Person[][] groups = new Person[num][3];
 
        for (int i = 0; i < Math.floorDiv(numStudents, 3); i++) {
-            groups[i] = new Person[3];
+            groups[i] = new Person[4];
             groups[i][0] = selectK1Student(i);
        }
        for (int i = 0; i < Math.floorDiv(numStudents, 3); i++) {
@@ -268,28 +317,47 @@ public class ATUEngine {
             }
        }
 
-        // need to take account of the missing kid
-        // print 2d array of groups
+        checkAllStudents();
+        int num_groups = Math.floorDiv(numStudents, 3);
+        for (int i = 0; i < missing_person.length; ++i){
+            if (missing_person[i] != null) {
+                double distance_k1 = Double.MAX_VALUE;
+                int missing_index = 0;
+
+                double iter = Math.floor(num_groups * 0.6);
+                for (int j = num_groups - 1; j >= iter; j--) {
+                    double avg_temp_k1 = Integer.parseInt(groups[j][0].getK1energy()) + Integer.parseInt(groups[j][1].getK1energy()) + Integer.parseInt(groups[j][2].getK1energy()) + Integer.parseInt(missing_person[i].getK1energy());
+                    // avg_temp_k2 = Integer.parseInt(groups[j][0].getK2energy()) + Integer.parseInt(groups[j][1].getK2energy()) + Integer.parseInt(groups[j][2].getK2energy());
+                    avg_temp_k1 = avg_temp_k1 / 4;
+                    // avg_temp_k2 = avg_temp_k2 / 4;
+
+                    double distance_temp = Math.abs(avg_temp_k1 - averageK1);
+                    if (distance_temp <= distance_k1) {
+                        distance_k1 = distance_temp;
+                        missing_index = j;
+                    }
+                }
+                groups[missing_index][3] = missing_person[i];
+                missing_person[i] = null;
+            }
+        }
+
+        // to debug
         for (int i = 0; i < groups.length; i++) {
             System.out.println("Group " + (i + 1) + ":");
             double avg_k1 = 0;
             double avg_k2 = 0;
-            boolean largeK1 = false;
+            int num_of_ppl = 0;
             for (int j = 0; j < groups[i].length; j++) {
                 if (groups[i][j] != null) {
+                    num_of_ppl++;
                     avg_k1 = avg_k1 + Integer.parseInt(groups[i][j].getK1energy());
                     avg_k2 = avg_k2 + Integer.parseInt(groups[i][j].getK2energy());
                     System.out.print(groups[i][j].getStudentid() + " ");
-                    if (Integer.parseInt(groups[i][j].getK1energy()) >= averageK1) {
-                        largeK1 = true;
-                    }
                 }
             }
-            if (largeK1 == false) {
-                System.out.println("WRONGGGG!!");
-            }
-            avg_k1 = avg_k1 / 3;
-            avg_k2 = avg_k2 / 3;
+            avg_k1 = avg_k1 / num_of_ppl;
+            avg_k2 = avg_k2 / num_of_ppl;
             System.out.printf("\nAverage k1: %,.2f", avg_k1);
             System.out.printf("\nAverage k2: %,.2f", avg_k2);
             System.out.println("\nOverall average = " + (avg_k1 * 0.55 + avg_k2 * 0.45));
@@ -302,18 +370,5 @@ public class ATUEngine {
        return groups;
 
 }
-
-//    public int[][] getGroups() {
-//        // return the groups of students in the form of an 2d array
-//        /*
-//        example:
-//            [
-//                [sid1, sid2, sid3], // group 1
-//                [sid4, sid5, sid6], // group 2
-//                ...
-//                [sid(n-2), sid(n-1), sid(n)], // group n
-//            ]
-//         */
-//    }
 
 }
