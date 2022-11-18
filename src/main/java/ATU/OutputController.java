@@ -10,8 +10,12 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.control.Button;
+import javafx.event.ActionEvent;
+
 
 import ATU.models.Person;
+
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -29,6 +33,18 @@ public class OutputController {
     private LineChart<String, Number> LineChart1;
 
     @FXML
+    private Label label;
+
+    @FXML
+    private Button lookUp;
+
+    @FXML
+    private Label statistics;
+
+    @FXML
+    private Label text;
+
+    @FXML
     private CategoryAxis x;
 
     @FXML
@@ -40,7 +56,11 @@ public class OutputController {
     @FXML
     private NumberAxis y1;
 
-    @FXML Label label;
+    @FXML
+    void lookUpBtnOnPressed(ActionEvent event) {
+        System.out.println("Look up button pressed");
+
+    }
     // make a person array
     private Person[] personArr;
 
@@ -72,6 +92,7 @@ public class OutputController {
         ATUEngine atuEngine = new ATUEngine(personArr);
         Person[][] groups = atuEngine.createGroups();
         plotTeamAverage(groups);
+        calculateStatistics(groups);
     }
 
     void plotStudentKeyEnergy(Person[] persons) {
@@ -91,6 +112,67 @@ public class OutputController {
         LineChart.getData().addAll(k1Series, k2Series);
     }
 
+    void calculateStatistics(Person[][] groups) {
+        int numGroups = groups.length;
+
+        // calculate the average of each group
+        float[] k1k2AverageArr = new float[numGroups];
+        for (int i = 0; i < groups.length; i++) {
+            int group = i + 1;
+            int k1_sum = 0;
+            int k2_sum = 0;
+            int personCount = 0;
+            for (int j = 0; j < groups[i].length; j++) {
+                // calculate the average energy level of each group
+                if (groups[i][j] != null) {
+                    k1_sum += Integer.parseInt(groups[i][j].getK1energy());
+                    k2_sum += Integer.parseInt(groups[i][j].getK2energy());
+                    personCount++;
+                }
+            }
+
+            float k1_avg = (float) k1_sum / personCount;
+            float k2_avg = (float) k2_sum / personCount;
+            float k1k2Avg = (k1_avg + k2_avg) / 2;
+            k1k2AverageArr[i] = k1k2Avg;
+        }
+        double k1k2Average = 0;
+        for (int i = 0; i < k1k2AverageArr.length; i++) {
+            k1k2Average += k1k2AverageArr[i];
+        }
+        k1k2Average = k1k2Average / numGroups;
+
+        //get max and min by for loop
+        float max = k1k2AverageArr[0];
+        float min = k1k2AverageArr[0];
+        for (int i = 0; i < k1k2AverageArr.length; i++) {
+            if (k1k2AverageArr[i] > max) {
+                max = k1k2AverageArr[i];
+            }
+            if (k1k2AverageArr[i] < min) {
+                min = k1k2AverageArr[i];
+            }
+        }
+
+        // calculate the standard deviation
+        double sum = 0;
+        for (int i = 0; i < k1k2AverageArr.length; i++) {
+            sum += Math.pow(k1k2AverageArr[i] - k1k2Average, 2);
+        }
+        double standardDeviation = Math.sqrt(sum / numGroups);
+        //calculate the variance
+        double variance = Math.pow(standardDeviation, 2);
+        String formattedString = String.format("""
+                    Statistics for %d groups \n
+                    Mean    : %.2f \n
+                    Max      : %.2f \n
+                    Min      : %.2f \n
+                    S.D       : %.2f \n
+                    Variance : %.2f \n
+                    """, numGroups, k1k2Average, max, min, standardDeviation, variance);
+        statistics.setText(formattedString);
+    }
+
     void plotTeamAverage(Person[][] groups) {
         // create a k1 and k2, average, array list
 
@@ -102,26 +184,23 @@ public class OutputController {
         k2AvgSeries.setName("K2 Average");
         k1k2AvgSeries.setName("K1 and K2 Average");
 
-        // handler for clicking on line:
-        // k1AvgSeries.getNode().setOnMouseClicked(e -> System.out.println("Click on
-        // series"));
-
         // print out groups
         for (int i = 0; i < groups.length; i++) {
             int group = i + 1;
-            System.out.println("Group " + group);
             int k1_sum = 0;
             int k2_sum = 0;
+            int personCount = 0;
             for (int j = 0; j < groups[i].length; j++) {
                 // calculate the average energy level of each group
                 if (groups[i][j] != null) {
                     k1_sum += Integer.parseInt(groups[i][j].getK1energy());
                     k2_sum += Integer.parseInt(groups[i][j].getK2energy());
-                    System.out.println(groups[i][j].getStudentname());
+                    personCount++;
                 }
             }
-            float k1_avg = (float) k1_sum / groups[i].length;
-            float k2_avg = (float) k2_sum / groups[i].length;
+
+            float k1_avg = (float) k1_sum / personCount;
+            float k2_avg = (float) k2_sum / personCount;
             float k1k2Avg = (k1_avg + k2_avg) / 2;
             XYChart.Data<String, Number> k1AvgData = new XYChart.Data<String, Number>(String.valueOf(group), k1_avg);
             XYChart.Data<String, Number> k2AvgData = new XYChart.Data<String, Number>(String.valueOf(group), k2_avg);
@@ -155,6 +234,5 @@ public class OutputController {
             String formattedString = String.format(" Team %d \n K1 + K2 Average: %.2f \n K1 Average: %.2f \n K2 Average: %.2f", i+1 ,data.getYValue(),k1AvgSeries.getData().get(i).getYValue(), k2AvgSeries.getData().get(i).getYValue());
             data.getNode().setOnMouseClicked(e -> label.setText(formattedString));
         }
-            
     }
 }
