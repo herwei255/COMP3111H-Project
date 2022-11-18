@@ -10,10 +10,10 @@ class PersonTest {
 
     Person person;
 
-    @BeforeAll
+    @BeforeEach
     void setUp() {
-        person = new Person("1", "002876492", "Blaise Liu", "blaiseLIU92@connect.ust.hk",
-             "10", "12", "1", "1", "3");
+        person = new Person("002876492", "Blaise Liu", "blaiseLIU92@connect.ust.hk", "10",
+             "10", "1", "1", "1", "3");
     }
 
     @Test
@@ -31,14 +31,6 @@ class PersonTest {
             person.getEmail(), email
         );
     }
-
-    @Test
-    void getIndex() {
-        assertEquals(
-            person.getIndex(), "1"
-        );
-    }
-
     @Test
     void setIndex() {
         String index = "2";
@@ -99,7 +91,7 @@ class PersonTest {
     @Test
     void getK2energy() {
         assertEquals(
-            person.getK2energy(), "12"
+            person.getK2energy(), "10"
         );
     }
 
@@ -147,7 +139,7 @@ class PersonTest {
     @Test
     void getMypreference() {
         assertEquals(
-            person.getMypreference(), "3"
+            person.getMypreference(), "1"
         );
     }
 
