@@ -23,12 +23,6 @@ public class ATUEngine {
     private double averageK2;
     private double averageK1K2;
 
-    // helper function to print the address of the inputted object
-    public String printAddress(Object o) {
-    return o.getClass().getName() + "@" + 
-           Integer.toHexString(System.identityHashCode(o));
-    }
-
     // helper function to print 1D array with type Person
     public void printArray(Person[] array) {
         for (int i = 0; i < array.length; i++) {

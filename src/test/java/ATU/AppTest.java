@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AppTest {
 
-    @Timeout(4)
+    @Timeout(5)
     @Test
     void main() {
         App app = new App();
@@ -20,7 +20,7 @@ class AppTest {
             @Override
             public void run() {
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(3000);
                     assertTrue(Stage.getWindows().get(0).isShowing());
                     Platform.exit();
                 }
