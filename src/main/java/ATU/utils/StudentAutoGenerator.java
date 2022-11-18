@@ -1,4 +1,4 @@
-package ATU;
+package ATU.utils;
 
 import java.util.ArrayList;
 import ATU.models.Person;

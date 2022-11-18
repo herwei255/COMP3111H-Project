@@ -1,7 +1,7 @@
-package ATU;
+package ATU.controllers;
 
-import javafx.application.Platform;
-import javafx.event.EventHandler;
+import ATU.scenes.LookUpScene;
+import ATU.utils.ATUEngine;
 import javafx.fxml.FXML;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
@@ -9,7 +9,6 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.control.Button;
 import javafx.event.ActionEvent;
 import javafx.stage.Stage;
@@ -19,12 +18,6 @@ import javafx.stage.Stage;
 import ATU.models.Person;
 
 import java.io.*;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.ResourceBundle;
-import java.util.List;
 
 public class OutputController {
 

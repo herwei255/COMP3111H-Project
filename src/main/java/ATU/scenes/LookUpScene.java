@@ -1,5 +1,7 @@
-package ATU;
+package ATU.scenes;
 
+import ATU.controllers.HasController;
+import ATU.controllers.LookUpController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -9,13 +11,13 @@ import javafx.scene.control.Label;
 import java.io.IOException;
 import java.util.Objects;
 
-public class OutputScene extends Scene implements HasController<OutputController> {
+public class LookUpScene extends Scene implements HasController<LookUpController> {
     
-    private final OutputController controller;
+    private final LookUpController controller;
 
-    public OutputScene() throws IOException {
+    public LookUpScene() throws IOException {
         super(new Label("Loading..."));
-        final var fxml = getClass().getClassLoader().getResource("output.fxml");
+        final var fxml = getClass().getClassLoader().getResource("LookUp.fxml");
         final var loader = new FXMLLoader(Objects.requireNonNull(fxml));
         final var startPane = loader.<Pane>load();
         this.setRoot(startPane);
@@ -23,7 +25,7 @@ public class OutputScene extends Scene implements HasController<OutputController
     }
 
     @Override
-    public OutputController getController() {
+    public LookUpController getController() {
         return controller;
     }
 }

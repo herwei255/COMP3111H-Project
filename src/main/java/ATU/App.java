@@ -1,13 +1,9 @@
 package ATU;
 
+import ATU.scenes.MainScene;
+import ATU.scenes.OutputScene;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
-import javafx.fxml.Initializable;
-import javafx.scene.chart.XYChart;
-
 
 
 import java.io.IOException;

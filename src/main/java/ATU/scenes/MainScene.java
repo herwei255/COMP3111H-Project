@@ -1,5 +1,7 @@
-package ATU;
+package ATU.scenes;
 
+import ATU.controllers.HasController;
+import ATU.controllers.MainController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;

@@ -1,8 +1,9 @@
-package ATU;
+package ATU.controllers;
 
+import ATU.scenes.AutoGenerationScene;
+import ATU.scenes.OutputScene;
 import ATU.models.Person;
 
-import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -21,7 +22,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.function.Predicate;
 
 public class MainController implements Initializable {
 

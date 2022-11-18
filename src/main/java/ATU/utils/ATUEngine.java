@@ -1,4 +1,4 @@
-package ATU;
+package ATU.utils;
 
 import ATU.models.Person;
 import java.util.HashMap;

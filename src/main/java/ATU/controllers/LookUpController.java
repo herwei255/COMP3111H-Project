@@ -1,4 +1,4 @@
-package ATU;
+package ATU.controllers;
 
 import ATU.models.Person;
 
