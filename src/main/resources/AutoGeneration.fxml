@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="454.0" prefWidth="672.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ATU.controllers.AutoGenerationController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="454.0" prefWidth="672.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ATU.controllers.AutoGenerationController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e3ebf2" height="57.0" layoutX="25.0" layoutY="328.0" stroke="BLACK" strokeType="INSIDE" width="330.0" />
       <TextField alignment="CENTER" editable="false" focusTraversable="false" layoutX="36.0" layoutY="20.0" pickOnBounds="false" prefHeight="57.0" prefWidth="600.0" text="Input Parameters for Auto Generation">

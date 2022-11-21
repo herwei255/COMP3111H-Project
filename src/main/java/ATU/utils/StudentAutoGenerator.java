@@ -88,8 +88,6 @@ public class StudentAutoGenerator {
 
         // Add counters until their limit
         int i = 0;
-        System.out.println(k3Tick1Counter);
-        System.out.println(maxK3Tick1);
         while (k3Tick1Counter < maxK3Tick1) {
             if (students.get(i).getK3trick1() == "0" ) {
                 students.get(i).setK3trick1("1");

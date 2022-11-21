@@ -88,6 +88,8 @@ public class MainController implements Initializable {
     @FXML
     private Button autoTeamUpButton;
 
+    Button getAutoTeamUpButton() {return autoTeamUpButton;}
+
     @FXML
     void nameSearchBoxOnKeyReleased(javafx.scene.input.KeyEvent event) {
         updateFilters();
@@ -100,7 +102,8 @@ public class MainController implements Initializable {
 
     @FXML
     void autoTeamUpButtonPressed(ActionEvent event) {
-        System.out.println("Auto Team Up Button Pressed");
+
+        System.out.println(event);
         Stage stage = new Stage();
         stage.setTitle("Output");
         OutputScene scene = null;

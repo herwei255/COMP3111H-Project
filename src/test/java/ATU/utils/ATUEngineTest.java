@@ -16,6 +16,9 @@ class ATUEngineTest {
 
     ATUEngine atuEngine;
     Person[] persons;
+    Person[] hundredPersons = new Person[100];
+    Person[] fourPerson = new Person[4];
+
 
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
@@ -58,49 +61,73 @@ class ATUEngineTest {
                     out.toString().replaceAll("\n", "").replaceAll("\r", ""));
     }
     @Test
-    void testCreateGroups() {
+    void testCreateGroup() {
         //test if 3 person will result in one group
         Person[][] groups = atuEngine.createGroups();
         assertEquals(groups.length, 1);
-        //test if 30 person will result in 10 groups
+    }
+
+    //test if 100 person will result in 33 groups
+    @Test
+    void testCreateGroups1() {
         int num = 100;
-        Person[] Morepersons = new Person[num];
         for (int i = 0; i < num; i++) {
-            String leader = String.valueOf(i % 2);
             Random r = new Random();
+            String leader = String.valueOf(r.nextInt(30) < 25 ? 1 : 0);
+            int randomBool1 = r.nextInt(0,1);
+            int randomBool2 = r.nextInt(0,1);
             int randomIntK1 = r.nextInt(100) + 1;
             int randomIntK2 = r.nextInt(100) + 1;
+
+            String k3Tick1 = String.valueOf(randomBool1);
+            String k3Tick2 = String.valueOf(randomBool2);
             String k1 = String.valueOf(randomIntK1);
             String k2 = String.valueOf(randomIntK2);
-            Morepersons[i] = new Person(String.valueOf(k1+k2+leader), "Blaise Liu", "blaiseLIU92@connect.ust.hk", k1, k2, "", "1", leader, "");
+            
+            hundredPersons[i] = new Person(String.valueOf(k1+k2+leader), "Blaise Liu", "blaiseLIU92@connect.ust.hk", k1, k2, k3Tick1, k3Tick2, leader, "");
         }
-        atuEngine = new ATUEngine(Morepersons);
-        groups = atuEngine.createGroups();
+        atuEngine = new ATUEngine(hundredPersons);
+        Person[][] groups = atuEngine.createGroups();
         assertEquals(groups.length, 33);
+    }
 
-
-        //more leaders
+    @Test
+    void testCreateGroups2() {
+         //test if 4 person will result in 1 group
+        int num = 4; 
         for (int i = 0; i < num; i++) {
-            String leader = String.valueOf(i % 10 > 1 ? 1 : 0);
             Random r = new Random();
+            String leader = String.valueOf(r.nextInt(30) < 25 ? 1 : 0);
+            int randomBool1 = r.nextInt(0,1);
+            int randomBool2 = r.nextInt(0,1);
             int randomIntK1 = r.nextInt(100) + 1;
             int randomIntK2 = r.nextInt(100) + 1;
+
+            String k3Tick1 = String.valueOf(randomBool1);
+            String k3Tick2 = String.valueOf(randomBool2);
             String k1 = String.valueOf(randomIntK1);
             String k2 = String.valueOf(randomIntK2);
-            Morepersons[i] = new Person(String.valueOf(k1+k2+leader), "Blaise Liu", "blaiseLIU92@connect.ust.hk", k1, k2, "", "1", leader, "");
+            
+            fourPerson[i] = new Person(String.valueOf(k1+k2+leader), "Blaise Liu", "blaiseLIU92@connect.ust.hk", k1, k2, k3Tick1, k3Tick2, leader, "");
         }
-        atuEngine = new ATUEngine(Morepersons);
-        groups = atuEngine.createGroups();
-        assertEquals(groups.length, 33);
-
-        //test if 4 person will result in 1 group
-        Person[] fourPerson = new Person[4];
-        fourPerson[0] = new Person("00000001", "Blaise Liu", "blaiseLIU92@connect.ust.hk", "30", "20", "", "1", "1", "");
-        fourPerson[1] = new Person("00000002", "Jesus Liu", "jesus92@connect.ust.hk", "50", "40", "1", "1", "0", "");
-        fourPerson[2] = new Person("00000003", "Dose Liu", "doiseLIU92@connect.ust.hk", "70", "60", "1", "0", "0", "");
-        fourPerson[3] = new Person("00000004", "Chara Liu", "doifdLIU92@connect.ust.hk", "30", "50", "1", "0", "0", "");
+  
         atuEngine = new ATUEngine(fourPerson);
-        groups = atuEngine.createGroups();
+        Person[][] groups = atuEngine.createGroups();
         assertEquals(groups.length, 1);
+    }
+
+    // stress test for every number of people between 200-500
+    @Test
+    void testCreateGroups3() {
+        Random r = new Random();
+        for (int num = 200; num < 501; num++) {
+            Person[] Morepersons = new Person[num];
+            for (int i = 0; i < num; i++) {
+                Morepersons[i] = new Person("00000003", "Dose Liu", "doiseLIU92@connect.ust.hk", "70", "60", "1", "0", "0", "");
+            }
+            atuEngine = new ATUEngine(Morepersons);
+            Person[][] groups = atuEngine.createGroups();
+            assertEquals(groups.length, num/3);
+        }
     }
 }

@@ -96,7 +96,6 @@ public class OutputController {
 
         plotStudentKeyEnergy(personArr);
 
-        // create ATUengine
         ATUEngine atuEngine = new ATUEngine(personArr);
         groupedArr = atuEngine.createGroups();
         plotTeamAverage(groupedArr);

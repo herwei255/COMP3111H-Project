@@ -58,11 +58,6 @@ public class AutoGenerationController implements Initializable {
             Node node = (Node) event.getSource();
             Stage stage = (Stage) node.getScene().getWindow();
             stage.close();
-        } else {
-            // Not validated
-            // Node node = (Node) event.getSource();
-            // Stage stage = (Stage) node.getScene().getWindow();
-            // stage.close();
         }
 
         event.consume();
@@ -114,7 +109,7 @@ public class AutoGenerationController implements Initializable {
      *
      * @return true if all fields are within set range, and not null.
      */
-    boolean dataValidated() {
+    public boolean dataValidated() {
         boolean noStudentsBool = true, avgK1Bool = true, avgK2Bool = true, k3Tick1Bool = true, k3Tick2Bool = true, myPrefBool = true;
         numberOfStudentsField.setStyle("-fx-text-fill: black ;");
         averageK1EnergyField.setStyle("-fx-text-fill: black ;");
