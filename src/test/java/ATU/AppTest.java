@@ -29,6 +29,8 @@ class AppTest {
                 }
             }
         }).start();
+        assertNull(app.getStage());
+        assertNull(app.getMainScene());
         App.main(new String[]{""});
     }
 }

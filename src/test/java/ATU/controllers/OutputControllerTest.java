@@ -15,7 +15,6 @@ import javafx.stage.Stage;
 
 class OutputControllerTest {
 
-    private Stage stage;
     private OutputScene outputScene;
 
     @BeforeEach

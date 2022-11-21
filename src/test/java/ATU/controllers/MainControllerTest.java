@@ -30,6 +30,7 @@ class MainControllerTest {
     @Test
     void testMainScene() {
         assertNotNull(mainScene);
+        assertNotNull(mainScene.getController());
     }   
 
 }
