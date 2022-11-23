@@ -19,38 +19,38 @@ import ATU.models.Person;
 
 import java.io.*;
 
+/**
+ * The controller class for the Output window.
+ */
 public class OutputController {
 
+    /**
+     * The linechart to display the k1 energy and k2 energy result before grouping.
+     */
     @FXML
     private LineChart<String, Number> LineChart;
 
+    /**
+     * The linechart to display the result of the grouping.
+     */
     @FXML
     private LineChart<String, Number> LineChart1;
 
+    /**
+     * The label to show the selected student of the linechart.
+     */
     @FXML
     private Label label;
 
-    @FXML
-    private Button lookUp;
-
+    /**
+     * The statistic lable to show the statistic of the grouping result.
+     */
     @FXML
     private Label statistics;
 
-    @FXML
-    private Label text;
-
-    @FXML
-    private CategoryAxis x;
-
-    @FXML
-    private CategoryAxis x1;
-
-    @FXML
-    private NumberAxis y;
-
-    @FXML
-    private NumberAxis y1;
-
+    /**
+     * @param event The event of the look up button click.
+     */
     @FXML
     void lookUpBtnOnPressed(ActionEvent event) {
         System.out.println("Look up button pressed");
@@ -68,11 +68,20 @@ public class OutputController {
         stage.show();
 
     }
-    // make a person array
+
+    /**
+     * The array of the students.
+     */
     private Person[] personArr;
+    
+    /**
+     * The array of the students after grouping.
+     */
     private Person[][] groupedArr;
 
-    // inititalize the person list
+    /** inititalize the person list
+     * @param personArr The array of the students that is to be initialized.
+     */
     public void initOutput(Person[] personArr) {
         // deep copy personArr into
         this.personArr = new Person[personArr.length];
@@ -96,13 +105,15 @@ public class OutputController {
 
         plotStudentKeyEnergy(personArr);
 
-        // create ATUengine
         ATUEngine atuEngine = new ATUEngine(personArr);
         groupedArr = atuEngine.createGroups();
         plotTeamAverage(groupedArr);
         calculateStatistics(groupedArr);
     }
 
+    /**
+     * @param persons The array of the students that is to be plotted.
+     */
     void plotStudentKeyEnergy(Person[] persons) {
         // create serires
         XYChart.Series k1Series = new XYChart.Series();
@@ -120,6 +131,9 @@ public class OutputController {
         LineChart.getData().addAll(k1Series, k2Series);
     }
 
+    /**
+     * @param groups The array of the students that is grouped
+     */
     void calculateStatistics(Person[][] groups) {
         int numGroups = groups.length;
 
@@ -181,6 +195,9 @@ public class OutputController {
         statistics.setText(formattedString);
     }
 
+    /**
+     * @param groups The array of the students that is grouped
+     */
     void plotTeamAverage(Person[][] groups) {
         // create a k1 and k2, average, array list
 

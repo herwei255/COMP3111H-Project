@@ -9,46 +9,91 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.input.KeyEvent;
 
+/**
+ * The controller class for the Look Up window.
+ */
 public class LookUpController{
 
+    /**
+     * The warning label text to display the warning message.
+     */
     @FXML
     private Label warning;
 
+    /**
+     * The grid pane for displaying the results.
+     */
     @FXML
     private GridPane lookUpTable;
 
+    /**
+     * The label to show the k1 energy of the found student.
+     */
     @FXML
     private Label k1Avg;
 
+    /**
+     * The label to show the k2 energy of the found student.
+     */
     @FXML
     private Label k2Avg;
 
+    /**
+     * The label to show the id of the found student.
+     */
     @FXML
     private Label myID;
 
+    /**
+     * The label to show the full name of the found student.
+     */
     @FXML
     private Label myName;
 
+    /**
+     * The textfield to save the student id input from the client.
+     */
     @FXML
     private TextField studentIDSearchBox;
 
+    /**
+     * The textfield to save the student name input from the client.
+     */
     @FXML
     private TextField studentIDSearchBox1;
 
+    /**
+     * The label to show the found student's first teammate's name.
+     */
     @FXML
     private Label teammateOneName;
 
+    /**
+     * The label to show the found student's third teammate's name.
+     */
     @FXML
     private Label teammateThreeName;
 
+    /**
+     * The label to show the found student's second teammate's name.
+     */
     @FXML
     private Label teammateTwoName;
 
+    /**
+     * The label to show the team numbr of the found student's fourth teammate's name.
+     */
     @FXML
     private Label teamNumber;
 
+    /**
+     * The array to store the grouped students.
+     */
     private Person[][] groupedArr;
 
+    /**
+     * @param event The button event that triggers the method.
+     */
     @FXML
     void serachButtonPressed(ActionEvent event) {
         System.out.println("Search button pressed");
@@ -137,12 +182,12 @@ public class LookUpController{
         }
     }
 
+    /**
+     * @param groupedArr Initialize the array to store the grouped students.
+     */
     public void initLookUp(Person[][] groupedArr) {
         this.groupedArr = groupedArr;
         lookUpTable.setOpacity(0);
         warning.setOpacity(0);
     }
-
-
-    
 }

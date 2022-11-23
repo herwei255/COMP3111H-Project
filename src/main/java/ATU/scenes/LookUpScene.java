@@ -11,10 +11,23 @@ import javafx.scene.control.Label;
 import java.io.IOException;
 import java.util.Objects;
 
+/**
+ * The class for the LookUpScene
+ * Initializes the LookUpScene from the respective fxml file
+ * and provides the access to the controller for the scene
+ */
 public class LookUpScene extends Scene implements HasController<LookUpController> {
-    
+
+    /**
+     * Represents the controller for the LookUpScene
+     */
     private final LookUpController controller;
 
+    /**
+     * The constructor for the LookUpScene
+     * Initializing the LookUpScene from the respective fxml file and initializing the controller
+     * @throws IOException if the fxml file cannot be loaded or the look up scene class cannot be created
+     */
     public LookUpScene() throws IOException {
         super(new Label("Loading..."));
         final var fxml = getClass().getClassLoader().getResource("LookUp.fxml");
@@ -24,6 +37,9 @@ public class LookUpScene extends Scene implements HasController<LookUpController
         controller = loader.getController();
     }
 
+    /**
+     * @return Return the controller for the LookUpScene
+     */
     @Override
     public LookUpController getController() {
         return controller;
