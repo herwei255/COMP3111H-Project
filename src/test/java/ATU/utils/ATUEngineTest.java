@@ -72,19 +72,20 @@ class ATUEngineTest {
     void testCreateGroups1() {
         int num = 100;
         for (int i = 0; i < num; i++) {
-            Random r = new Random();
-            String leader = String.valueOf(r.nextInt(30) < 25 ? 1 : 0);
-            int randomBool1 = r.nextInt(0,1);
-            int randomBool2 = r.nextInt(0,1);
-            int randomIntK1 = r.nextInt(100) + 1;
-            int randomIntK2 = r.nextInt(100) + 1;
+            // Random r = new Random();
+            // String leader = String.valueOf(r.nextInt(30) < 25 ? 1 : 0);
+            // int randomBool1 = r.nextInt(0,1);
+            // int randomBool2 = r.nextInt(0,1);
+            // int randomIntK1 = r.nextInt(100) + 1;
+            // int randomIntK2 = r.nextInt(100) + 1;
 
-            String k3Tick1 = String.valueOf(randomBool1);
-            String k3Tick2 = String.valueOf(randomBool2);
-            String k1 = String.valueOf(randomIntK1);
-            String k2 = String.valueOf(randomIntK2);
-            
-            hundredPersons[i] = new Person(String.valueOf(k1+k2+leader), "Blaise Liu", "blaiseLIU92@connect.ust.hk", k1, k2, k3Tick1, k3Tick2, leader, "");
+            // String k3Tick1 = String.valueOf(randomBool1);
+            // String k3Tick2 = String.valueOf(randomBool2);
+            // String k1 = String.valueOf(randomIntK1);
+            // String k2 = String.valueOf(randomIntK2);
+            //
+            hundredPersons[i] = new Person("00000003", "Dose Liu", "doiseLIU92@connect.ust.hk", "70", "60", "1", "0", "0", "");
+            // hundredPersons[i] = new Person(String.valueOf(k1+k2+leader), "Blaise Liu", "blaiseLIU92@connect.ust.hk", k1, k2, k3Tick1, k3Tick2, leader, "");
         }
         atuEngine = new ATUEngine(hundredPersons);
         Person[][] groups = atuEngine.createGroups();
