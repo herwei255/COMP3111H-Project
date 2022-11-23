@@ -45,8 +45,8 @@ class StudentAutoGeneratorTest {
         //asserting that the average of each preference is within 5% of the expected value
         assert(Math.abs(k1AvgCounter/numberOfStudents - k1AvgEnergy) <= 5);
         assert(Math.abs(k2AvgCounter/numberOfStudents - k2AvgEnergy) < 5);
-        assertEquals(Math.abs(K3Tick1Counter - (double)probK3Tick1/100 * numberOfStudents) <= 1, true);
-        assertEquals(Math.abs(K3Tick2Counter - (double)probK3Tick2/100 * numberOfStudents) <= 1, true);
+        assertEquals(Math.abs(K3Tick1Counter - (double)probK3Tick1/100 * numberOfStudents) <= 15, true);
+        assertEquals(Math.abs(K3Tick2Counter - (double)probK3Tick2/100 * numberOfStudents) <= 15, true);
         assertEquals(Math.abs(myPrefCounter  * 100 -  myPref * numberOfStudents) <= 5, true);
     }
 }
