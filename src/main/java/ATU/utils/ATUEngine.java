@@ -3,34 +3,90 @@ package ATU.utils;
 import ATU.models.Person;
 import java.util.HashMap;
 
-public class ATUEngine { 
+/**
+ * The class for the ATUEngine
+ * The ATUEngine is responsible for grouping the students into groups with the best possible distribution
+ */
+public class ATUEngine {
 
+    /**
+     * A HashMap that stores the students that are to be grouped
+     */
     HashMap<Integer, Integer> selected_students;
 
+    /**
+     * An array for the students that are to be grouped in ascending order
+     */
     private Person[] k1_students;
+
+    /**
+     * An array for the students that are categorized as group A students
+     */
     private Person[] group_A;
+
+    /**
+     * An array for the students that are categorized as group B students
+     */
     private Person[] group_B;
+
+    /**
+     * An array for the students that are categorized as group C students
+     */
     private Person[] group_C;
+
+    /**
+     * An array for the students that are not being group
+     */
     private Person[] missing_person;
 
+    /**
+     * Boolen to check if group A is empty
+     */
     private boolean group_A_empty = false;
+
+    /**
+     * Boolen to check if group B is empty
+     */
     private boolean group_B_empty = false;
+
+    /**
+     * Boolen to check if group C is empty
+     */
     private boolean group_C_empty = false;
 
+    /**
+     * The total number of students that are to be grouped
+     */
     private int numStudents;
 
+    /**
+     * The averagek1 score of the students 
+     */
     private double averageK1;
+
+    /**
+     * The averagek2 score of the students 
+     */
     private double averageK2;
+    
+    /**
+     * The averagek1k2 score of the students after grouping 
+     */
     private double averageK1K2;
 
-    // helper function to print 1D array with type Person
+    /**
+     * helper function to print 1D array with type Person
+     * @param array the person array to be printed
+     */
     public void printArray(Person[] array) {
         for (int i = 0; i < array.length; i++) {
             System.out.println(i + " " + array[i].getStudentid() + " " + array[i].getK1energy() + " " + array[i].getK2energy());
         }
     }
 
-    // helper function to check whether all students have been assigned to a group
+    /**
+     * helper function to check whether all students have been assigned to a group
+     */
     protected void checkAllStudents() {
         group_A_empty = true;
         group_B_empty = true;
@@ -65,6 +121,11 @@ public class ATUEngine {
         }
     }
 
+    /**
+     * The constructor for the ATUEngine
+     * Initializing the ATUEngine attributes
+     * @param people the students that are to be grouped
+     */
     public ATUEngine(Person[] people) {
 
         int num_people_in_group_A_C = Math.floorDiv(people.length, 3);
@@ -128,7 +189,11 @@ public class ATUEngine {
 
     }
 
-    // helper function to know which group the student is belong to
+    /**
+     * helper function to know which group the student is belong to
+     * @param sid the student id
+     * @return the group id of the student's group
+     */
     protected int findStudentGroup(int sid) {
   
         for (int i = 0; i < group_A.length; i++) {
@@ -155,7 +220,11 @@ public class ATUEngine {
         return -1;
     }
 
-    // function to remove the students from the respective groups
+    /**
+     * helper function to remove the students from the respective groups
+     * @param sid the student id
+     * @param group the group id
+     */
     protected void removeStudent(int sid, int group) {
         if (group == 1) {
             for (int i = 0; i < group_A.length; i++) {
@@ -184,7 +253,11 @@ public class ATUEngine {
         }
     }
 
-    // function to select student from the highest k1 to ensure every team has at least one member with k1 >= average k1
+    /**
+     * helper function to select student from the highest k1 to ensure every team has at least one member with k1 >= average k1
+     * @param index the student index based on the k1_students array
+     * @return the student selected
+     */
     protected Person selectK1Student(int index) {
         Person selected = k1_students[index];
         int group = findStudentGroup(Integer.parseInt(selected.getStudentid()));
@@ -193,7 +266,14 @@ public class ATUEngine {
         return selected;
     }
 
-    // function to select student from the chosen groups based on the existing team members's k1 and k2 values
+
+    /**
+     * function to select student from the chosen groups based on the existing team members's k1 and k2 values
+     * @param which_group the group id
+     * @param group the group type
+     * @param size the size of the group
+     * @return the student selected
+     */
     protected Person selectFromGroup(int which_group, Person group[], int size) {
         int cumulative_k1 = 0;
         int cumulative_k2 = 0;
@@ -255,6 +335,11 @@ public class ATUEngine {
         return selected;
     }
 
+    /**
+     * function to create the optimal groups for the students
+     * @return the 2-D array of the groups where first each row is a group and 
+     * the row's index is the group id
+     */
     public Person[][] createGroups() {
        int num = (int) (numStudents / 3);
        Person[][] groups = new Person[num][3];

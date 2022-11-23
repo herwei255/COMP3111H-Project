@@ -16,31 +16,61 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+/**
+ * The controller class for the auto generation window.
+ */
 public class AutoGenerationController implements Initializable {
 
+    /**
+     * The text field to store the input from the client for the averge k1 Enegry.
+     */
     @FXML
     private TextField averageK1EnergyField;
 
+    /**
+     * The text field to store the input from the client for the averge k2 Enegry.
+     */
     @FXML
     private TextField averageK2EnergyField;
 
+    /**
+     * The text field to store the input from the client for the number of students to be generated.
+     */
     @FXML
     private TextField numberOfStudentsField;
 
+    /**
+     * The text field to store the input from the client for the probabilities of k3 tick 1 for all the students.
+     */
     @FXML
     private TextField probK3Tick1Field;
 
+    /**
+     * The text field to store the input from the client for the probabilities of k3 tick 2 for all the students.
+     */
     @FXML
     private TextField probK3Tick2Field;
 
+    /**
+     * The text field to store the input from the client for the probabilities of my prefrence is true for all the students.
+     */
     @FXML
     private TextField probMyPreferenceTrue;
 
+    /**
+     * The sumbit button to confirm the input from the client.
+     */
     @FXML
     private Button submitButton;
 
+    /**
+     * The property to store the created students.
+     */
     Property<ArrayList<Person>> students = new SimpleObjectProperty<>();
 
+    /**
+     * @param event the button click event.
+     */
     @FXML
     void submitButtonClicked(ActionEvent event) {
         if (dataValidated()) {
@@ -63,6 +93,12 @@ public class AutoGenerationController implements Initializable {
         event.consume();
     }
 
+    /**
+     * @param url            The location used to resolve relative paths for the root object, or 
+     *                       {@code null} if the location is not known.
+     * @param resourceBundle The resources used to localize the root object, or {@code null} if
+     *                       the root object was not localized.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         forceFieldsNumeric();
